@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>World Trend Finder - <%= yield(:title) %></title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+  <!--[if lt IE 9]>
+  <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <header class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <%= link_to "World Trend Finder", root_path, class: "brand" %>
+        <nav>
+          <ul class="nav pull-right">
+            <li<%= current_page?(root_path) ? " class='active'" : nil %>><%= link_to "Home", root_path %></li>
+            <li<%= current_page?(words_path) ? " class='active'" : nil %>><%= link_to "Words", words_path %></li>
+            <li<%= current_page?(sites_path) ? " class='active'" : nil %>><%= link_to "Sites", sites_path %></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+  <div class="container">
+    <div class="hero-unit">
+      <%= yield %>
+    </div>
+  </div>
+  <!-- TOFIX: center footer alignment -->
+  <footer>
+    <div class="container">
+      <ul class="nav nav-pills">
+        <li<%= current_page?(about_path) ? " class='active'" : nil %>><%= link_to "About", about_path %></li>
+        <li><%= link_to "Blog", "http://vasil-y.com", :target => "_blank" %></li>
+      </ul>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,18 @@
+# PostgreSQL database connection
+
+common: &common
+  adapter: postgresql
+  username: trendfinder
+  password: trendfinder3107
+
+development:
+  <<: *common
+  database: trendfinder_development
+
+test:
+  <<: *common
+  database: trendfinder_test
+
+production:
+  <<: *common
+  database: trendfinder_production
