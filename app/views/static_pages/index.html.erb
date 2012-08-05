@@ -22,6 +22,7 @@
                         :measurements => Measurement.measurement_words,
                         :name => "Word",
                         :sort => nil } %>
+<%= link_to "More words...", :controller => "words" %>
 <center><h3>Trending Websites</h3></center>
 <br/>
 <%= render :partial => 'shared/table',
@@ -29,3 +30,4 @@
                         :measurements => Measurement.measurement_sites,
                         :name => "Website",
                         :sort => nil } %>
+<%= link_to "More sites...", :controller => "sites" %>
