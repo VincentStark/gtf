@@ -25,37 +25,33 @@ namespace :db do
     end
 
     # Fill measurements
-    measurements = [ "Google Searches", "AdWords Rank", "Alexa Rank" ]
+    measurements = [ { name: "Google", mtype: 0, url: "http://www.google.com/insights/search/#&date=today%201-m&cmpt=q&q=" },
+                     { name: "AdWords", mtype: 0, url: "https://adwords.google.com/o/Targeting/Explorer??__o=cues&ideaRequestType=KEYWORD_IDEAS&q=" },
+                     { name: "Google", mtype: 1, url: "http://www.google.com/insights/search/#&date=today%201-m&cmpt=q&q=" },
+                     { name: "Alexa", mtype: 1, url: "http://www.alexa.com/search?r=home_home&p=bigtop&q=" } ]
 
     for measurement in measurements
-      Measurement.create!(name: measurement)
-    end
+      m = Measurement.create!(name: measurement[:name],
+                              mtype: measurement[:mtype],
+                              url:  measurement[:url])
 
-    # Fill measurement values (words)
-    for word in Word.all
-      MeasurementValue.create!(
-        measurement: Measurement.find_by_name("Google Searches"),
-        word: word,
-        value: rand*100,
-        collected_at: Time.at(Time.now - rand * 6.months)
-      )
-    end
+      for word in Word.all
+        MeasurementValue.create!(
+          measurement: m,
+          word: word,
+          value: rand(100) + 1,
+          collected_at: Time.at(Time.now - rand * 6.months)
+        )
+      end
 
-    # Fill measurement values (sites)
-    for site in Site.all
-      MeasurementValue.create!(
-        measurement: Measurement.find_by_name("AdWords Rank"),
-        site: site,
-        value: rand*100,
-        collected_at: Time.at(Time.now - rand * 6.months)
-      )
-      MeasurementValue.create!(
-        measurement: Measurement.find_by_name("Alexa Rank"),
-        site: site,
-        value: rand*100,
-        collected_at: Time.at(Time.now - rand * 6.months)
-      )
+      for site in Site.all
+        MeasurementValue.create!(
+          measurement: m,
+          site: site,
+          value: rand(100) + 1,
+          collected_at: Time.at(Time.now - rand * 6.months)
+        )
+      end
     end
-
   end
 end

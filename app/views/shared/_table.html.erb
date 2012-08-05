@@ -1,0 +1,18 @@
+<div class="container-fluid well">
+  <div class="row-fluid">
+    <div class="span8">
+      <% sort_name = (params[:sort] == "name" or params[:sort].nil?) ? "name DESC" : "name" %>
+      <%= sort ? (link_to name, :sort => sort_name, :page => params[:page]) : name %>
+    </div>
+    <% for measurement in measurements %>
+      <div class="span1">
+        <% msort = (params[:sort] == measurement.name.downcase or params[:sort].nil?) ? measurement.name.downcase + " DESC" : measurement.name.downcase %>
+        <%= sort ? (link_to measurement.name, :sort => msort, :page => params[:page]) : measurement.name %>
+      </div>
+    <% end %>
+  </div>
+  <br/>
+  <%= render :partial => 'shared/entity',
+             :collection => entities,
+             :locals => { :measurements => measurements } %>
+</div>

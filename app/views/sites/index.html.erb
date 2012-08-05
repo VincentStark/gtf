@@ -1,1 +1,14 @@
 <%= provide(:title, 'Sites') %>
+
+<h2>Sites</h2>
+<br/>
+
+<%= will_paginate @sites %>
+
+<%= render :partial => 'shared/table',
+           :locals => { :entities => @sites,
+                        :measurements => Measurement.measurement_sites,
+                        :name => "Website",
+                        :sort => 1 } %>
+
+<%= will_paginate @sites %>

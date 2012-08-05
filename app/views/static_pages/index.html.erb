@@ -14,3 +14,18 @@
     </div>
   </div>
 <% end %>
+<br/>
+<center><h3>Trending Words</h3></center>
+<br/>
+<%= render :partial => 'shared/table', 
+           :locals => { :entities => @words,
+                        :measurements => Measurement.measurement_words,
+                        :name => "Word",
+                        :sort => nil } %>
+<center><h3>Trending Websites</h3></center>
+<br/>
+<%= render :partial => 'shared/table',
+           :locals => { :entities => @sites,
+                        :measurements => Measurement.measurement_sites,
+                        :name => "Website",
+                        :sort => nil } %>

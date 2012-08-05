@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(:version => 20120728030703) do
     t.integer  "measurement_id", :null => false
     t.integer  "word_id"
     t.integer  "site_id"
-    t.string   "value",        :null => false
+    t.integer  "value",        :null => false
     t.datetime "collected_at", :null => false
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
@@ -28,11 +28,13 @@ ActiveRecord::Schema.define(:version => 20120728030703) do
 
   create_table "measurements", :force => true do |t|
     t.string   "name",  :null => false
+    t.integer  "mtype",  :null => false
+    t.string   "url",  :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
-  add_index "measurements", ["name"], :name => "index_measurements_on_name", :unique => true
+  add_index "measurements", ["name", "mtype", "url"], :name => "index_measurements_on_name_mtype_url", :unique => true
 
   create_table "sites", :force => true do |t|
     t.string   "name",       :null => false

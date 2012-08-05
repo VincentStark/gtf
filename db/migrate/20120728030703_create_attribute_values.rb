@@ -4,7 +4,7 @@ class CreateMeasurementValues < ActiveRecord::Migration
       t.integer :measurement_id, :null => false
       t.integer :word_id
       t.integer :site_id
-      t.string :value, :null => false
+      t.integer :value, :null => false
       t.datetime :collected_at, :null => false
 
       t.timestamps

@@ -1,0 +1,11 @@
+<div class="row-fluid">
+  <div class="span8">
+    <b><%= entity.name %></b>
+  </div>
+  <% for measurement in measurements %>
+    <div class="span1">
+      <%= link_to entity.measurement_values.find_by_measurement_id(measurement).value,
+          measurement.url + CGI.escape(entity.name), :target => "_blank" %>
+    </div>
+  <% end %>
+</div>
