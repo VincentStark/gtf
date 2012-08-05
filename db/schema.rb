@@ -13,39 +13,41 @@
 
 ActiveRecord::Schema.define(:version => 20120728030703) do
 
-  create_table "attribute_values", :force => true do |t|
-    t.integer  "attribute_id", :null => false
-    t.integer  "entity_id",    :null => false
+  create_table "measurement_values", :force => true do |t|
+    t.integer  "measurement_id", :null => false
+    t.integer  "word_id"
+    t.integer  "site_id"
     t.string   "value",        :null => false
     t.datetime "collected_at", :null => false
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
   end
 
-  add_index "attribute_values", ["attribute_id", "entity_id", "value", "collected_at"], :name => "index_attribute_values_composite1", :unique => true
+  add_index "measurement_values", ["measurement_id", "word_id", "value", "collected_at"], :name => "index_measurement_values_composite1", :unique => true
+  add_index "measurement_values", ["measurement_id", "site_id", "value", "collected_at"], :name => "index_measurement_values_composite2", :unique => true
 
-  create_table "attributes", :force => true do |t|
-    t.string   "attribute",  :null => false
+  create_table "measurements", :force => true do |t|
+    t.string   "name",  :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
-  add_index "attributes", ["attribute"], :name => "index_attributes_on_attribute", :unique => true
+  add_index "measurements", ["name"], :name => "index_measurements_on_name", :unique => true
 
   create_table "sites", :force => true do |t|
-    t.string   "site",       :null => false
+    t.string   "name",       :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
-  add_index "sites", ["site"], :name => "index_sites_on_site", :unique => true
+  add_index "sites", ["name"], :name => "index_sites_on_name", :unique => true
 
   create_table "words", :force => true do |t|
-    t.string   "word",       :null => false
+    t.string   "name",       :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
-  add_index "words", ["word"], :name => "index_words_on_word", :unique => true
+  add_index "words", ["name"], :name => "index_words_on_name", :unique => true
 
 end

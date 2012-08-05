@@ -10,7 +10,7 @@ namespace :db do
               "support", "synergy", "system engine", "task-force", "throughput", "time-frame" ]
 
     for word in words
-      Word.create!(word)
+      Word.create!(name: word)
     end
 
     # Fill sites
@@ -21,7 +21,41 @@ namespace :db do
               "groceries.net", "guessmovies.net", "laworks.net", "paint.net", "secureserver.net" ]
 
     for site in sites
-      Site.create!(site)
+      Site.create!(name: site)
     end
+
+    # Fill measurements
+    measurements = [ "Google Searches", "AdWords Rank", "Alexa Rank" ]
+
+    for measurement in measurements
+      Measurement.create!(name: measurement)
+    end
+
+    # Fill measurement values (words)
+    for word in Word.all
+      MeasurementValue.create!(
+        measurement: Measurement.find_by_name("Google Searches"),
+        word: word,
+        value: rand*100,
+        collected_at: Time.at(Time.now - rand * 6.months)
+      )
+    end
+
+    # Fill measurement values (sites)
+    for site in Site.all
+      MeasurementValue.create!(
+        measurement: Measurement.find_by_name("AdWords Rank"),
+        site: site,
+        value: rand*100,
+        collected_at: Time.at(Time.now - rand * 6.months)
+      )
+      MeasurementValue.create!(
+        measurement: Measurement.find_by_name("Alexa Rank"),
+        site: site,
+        value: rand*100,
+        collected_at: Time.at(Time.now - rand * 6.months)
+      )
+    end
+
   end
 end

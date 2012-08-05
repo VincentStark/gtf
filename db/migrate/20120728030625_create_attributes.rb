@@ -1,11 +1,11 @@
-class CreateAttributes < ActiveRecord::Migration
+class CreateMeasurements < ActiveRecord::Migration
   def change
-    create_table :attributes do |t|
-      t.string :attribute, :null => false
+    create_table :measurements do |t|
+      t.string :name, :null => false
 
       t.timestamps
     end
 
-    add_index :attributes, :attribute, unique: true
+    add_index :measurements, :name, unique: true
   end
 end
