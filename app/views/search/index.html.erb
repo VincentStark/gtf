@@ -1,0 +1,27 @@
+<%= provide(:title, 'Search') %>
+<%= render 'shared/search' %>
+<br/>
+
+<% if !@words.nil? %>
+  <h2>Search Results - Words (<%= @words.length %>)</h2>
+  <br/>
+
+  <%= render :partial => 'shared/table',
+             :locals => { :entities => @words,
+                          :measurements => Measurement.measurement_words,
+                          :name => "Word",
+                          :sort => nil } %>
+
+<% end %>
+
+<% if !@sites.nil? %>
+  <h2>Search Results - Sites (<%= @sites.length %>)</h2>
+  <br/>
+
+  <%= render :partial => 'shared/table',
+             :locals => { :entities => @sites,
+                          :measurements => Measurement.measurement_sites,
+                          :name => "Site",
+                          :sort => nil } %>
+
+<% end %>

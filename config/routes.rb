@@ -6,10 +6,10 @@ TrendFinderFrontend::Application.routes.draw do
   match '/words/:name' => 'words#show'
   match '/sites/:name' => 'sites#show', :constraints => { :name => /.*/ }
 
-  post '/words'        => 'words#search'
+  post '/search'        => 'search#index'
 
-  resources :words, only: [ :index ]
-  resources :sites, only: [ :index ]
+  resources :words,  only: [ :index ]
+  resources :sites,  only: [ :index ]
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
