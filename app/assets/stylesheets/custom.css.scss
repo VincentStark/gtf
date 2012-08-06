@@ -24,3 +24,10 @@ textarea {
 .center h1 {
   margin-bottom: 10px;
 }
+
+div.highlight:hover {
+  background-color:      #ded;
+  border-radius:         4px;
+  -moz-border-radius:    4px;
+  -webkit-border-radius: 4px;
+}

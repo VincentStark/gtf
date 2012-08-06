@@ -8,10 +8,10 @@ class Site < ActiveRecord::Base
   scope :google,
         joins('INNER JOIN measurement_values ON measurement_values.site_id = sites.id')
           .select('sites.*, measurement_values.value AS google')
-          .where('measurement_values.measurement_id = 3')
+          .where('measurement_values.measurement_id = 2')
 
   scope :alexa,
         joins('INNER JOIN measurement_values ON measurement_values.site_id = sites.id')
           .select('sites.*, measurement_values.value AS alexa')
-          .where('measurement_values.measurement_id = 4')
+          .where('measurement_values.measurement_id = 3')
 end

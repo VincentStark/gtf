@@ -1,6 +1,6 @@
-<div class="row-fluid">
+<div class="row-fluid highlight">
   <div class="span8">
-    <b><%= entity.name %></b>
+    <b><%= link_to entity.name, name.downcase + "s/" + CGI.escape(entity.name) %></b>
   </div>
   <% for measurement in measurements %>
     <div class="span1">

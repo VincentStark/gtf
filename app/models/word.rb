@@ -9,9 +9,4 @@ class Word < ActiveRecord::Base
         joins('INNER JOIN measurement_values ON measurement_values.word_id = words.id')
           .select('words.*, measurement_values.value AS google')
           .where('measurement_values.measurement_id = 1')
-
-  scope :adwords,
-        joins('INNER JOIN measurement_values ON measurement_values.word_id = words.id')
-          .select('words.*, measurement_values.value AS adwords')
-          .where('measurement_values.measurement_id = 2')
 end

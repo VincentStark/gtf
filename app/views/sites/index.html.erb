@@ -8,7 +8,7 @@
 <%= render :partial => 'shared/table',
            :locals => { :entities => @sites,
                         :measurements => Measurement.measurement_sites,
-                        :name => "Website",
+                        :name => "Site",
                         :sort => 1 } %>
 
 <%= will_paginate @sites %>

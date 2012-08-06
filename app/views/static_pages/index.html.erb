@@ -28,6 +28,6 @@
 <%= render :partial => 'shared/table',
            :locals => { :entities => @sites,
                         :measurements => Measurement.measurement_sites,
-                        :name => "Website",
+                        :name => "Site",
                         :sort => nil } %>
 <%= link_to "More sites...", :controller => "sites" %>

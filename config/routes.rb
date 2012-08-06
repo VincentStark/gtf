@@ -2,7 +2,9 @@ TrendFinderFrontend::Application.routes.draw do
 
   root :to => 'static_pages#index'
 
-  match '/about', :to => 'static_pages#about'
+  match '/about'       => 'static_pages#about'
+  match '/words/:name' => 'words#show'
+  match '/sites/:name' => 'sites#show', :constraints => { :name => /.*/ }
 
   resources :words, only: [ :index ]
   resources :sites, only: [ :index ]

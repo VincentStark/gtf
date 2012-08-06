@@ -26,9 +26,8 @@ namespace :db do
 
     # Fill measurements
     measurements = [ { name: "Google", mtype: 0, url: "http://www.google.com/insights/search/#&date=today%201-m&cmpt=q&q=" },
-                     { name: "AdWords", mtype: 0, url: "https://adwords.google.com/o/Targeting/Explorer??__o=cues&ideaRequestType=KEYWORD_IDEAS&q=" },
                      { name: "Google", mtype: 1, url: "http://www.google.com/insights/search/#&date=today%201-m&cmpt=q&q=" },
-                     { name: "Alexa", mtype: 1, url: "http://www.alexa.com/search?r=home_home&p=bigtop&q=" } ]
+                     { name: "Alexa", mtype: 1, url: "http://www.alexa.com/siteinfo/" } ]
 
     for measurement in measurements
       m = Measurement.create!(name: measurement[:name],
