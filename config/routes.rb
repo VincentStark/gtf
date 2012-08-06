@@ -6,6 +6,8 @@ TrendFinderFrontend::Application.routes.draw do
   match '/words/:name' => 'words#show'
   match '/sites/:name' => 'sites#show', :constraints => { :name => /.*/ }
 
+  post '/words'        => 'words#search'
+
   resources :words, only: [ :index ]
   resources :sites, only: [ :index ]
 
