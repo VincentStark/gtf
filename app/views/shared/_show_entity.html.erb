@@ -1,0 +1,19 @@
+<%= provide(:title, type + ' - ' + entity.name) %>
+
+<h2><%= entity.name %></h2>
+<br/>
+
+<div class="row-fluid">
+  <div class="span6">
+    <img src=""/>
+  </div>
+  <div class="span6">
+    <% for measurement in measurements %>
+      <div class="row-fluid">
+        <div class="span12">
+          <b><%= measurement.name %>:</b> <%= entity.measurement_values.find_by_measurement_id(measurement).value %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
