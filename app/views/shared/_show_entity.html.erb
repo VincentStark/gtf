@@ -1,14 +1,48 @@
 <%= provide(:title, mtype.capitalize + ' - ' + entity.name) %>
+
+<script type="text/javascript" charset="utf-8">
+  $(function() {
+    new Highcharts.Chart({
+      chart: {
+        renderTo: "chart"
+      },
+      title: {
+        text: "Position by Day"
+      },
+      xAxis: {
+        type: "datetime"
+      },
+      yAxis: {
+        title: {
+          text: "Position"
+        },  
+        reversed: true,
+        min: 1
+      },
+      series: [
+        <% Measurement.find_all_by_mtype(mtype).each do |measurement| %>
+      {
+        name: "<%= measurement.name %>",
+        pointInterval: <%= 1.day * 1000 %>,
+        pointStart: <%= 1.month.ago.at_midnight.to_i * 1000 %>,
+        data: <%= (1.month.ago.to_date..Date.today).map { |date| 
+          entity.measurement_values.find_by_measurement_id_and_collected_at(measurement.id, date.at_midnight).value}.inspect
+        %>
+      },
+      <% end %>]
+    });
+  });
+</script>
+
 <%= render 'shared/search' %>
 <br/>
 <h2><%= entity.name %></h2>
 <br/>
 
 <div class="row-fluid">
-  <div class="span6">
-    <img src=""/>
+  <div class="span10" id="chart">
   </div>
-  <div class="span6">
+  <div class="span2">
     <% for measurement in Measurement.find_all_by_mtype(mtype) %>
       <div class="row-fluid">
         <div class="span12">

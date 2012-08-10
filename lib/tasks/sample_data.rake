@@ -36,26 +36,26 @@ namespace :db do
 
       # Assign random "places"
       if m.mtype == "word" 
-        Range.new(1.week.ago.to_i, Time.now.to_i).step(1.hour) do |time|
+        (1.month.ago.to_date..Date.today).map do |date|
           words.shuffle.each_with_index do |word, i|
             MeasurementValue.create!(
               measurement: m,
               word: Word.find_by_name(word),
               value: i,
-              collected_at: Time.at(time)
+              collected_at: date.at_midnight
             )
           end
         end
       end
 
       if m.mtype == "site"
-        Range.new(1.week.ago.to_i, Time.now.to_i).step(1.hour) do |time|
+        (1.month.ago.to_date..Date.today).map do |date|
           sites.shuffle.each_with_index do |site, i|
             MeasurementValue.create!(
               measurement: m,
               site: Site.find_by_name(site),
               value: i,
-              collected_at: Time.at(time)
+              collected_at: date.at_midnight
             )
           end
         end
