@@ -1,4 +1,4 @@
-<%= provide(:title, type + ' - ' + entity.name) %>
+<%= provide(:title, mtype.capitalize + ' - ' + entity.name) %>
 <%= render 'shared/search' %>
 <br/>
 <h2><%= entity.name %></h2>
@@ -9,11 +9,11 @@
     <img src=""/>
   </div>
   <div class="span6">
-    <% for measurement in measurements %>
+    <% for measurement in Measurement.find_all_by_mtype(mtype) %>
       <div class="row-fluid">
         <div class="span12">
           <b><%= measurement.name %>:</b> 
-             <%= link_to entity.measurement_values.find_by_measurement_id(measurement).value,
+             <%= link_to entity.measurement_values.latest.find_by_measurement_id(measurement).value,
                          measurement.url + CGI.escape(entity.name), :target => "_blank" %>
         </div>
       </div>
