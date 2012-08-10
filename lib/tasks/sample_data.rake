@@ -25,31 +25,39 @@ namespace :db do
     end
 
     # Fill measurements
-    measurements = [ { name: "Google", mtype: 0, url: "http://www.google.com/insights/search/#&date=today%201-m&cmpt=q&q=" },
-                     { name: "Google", mtype: 1, url: "http://www.google.com/insights/search/#&date=today%201-m&cmpt=q&q=" },
-                     { name: "Alexa", mtype: 1, url: "http://www.alexa.com/siteinfo/" } ]
+    measurements = [ { name: "Google", mtype: "word", url: "http://www.google.com/insights/search/#&date=today%201-m&cmpt=q&q=" },
+                     { name: "Google", mtype: "site", url: "http://www.google.com/insights/search/#&date=today%201-m&cmpt=q&q=" },
+                     { name: "Alexa", mtype: "site", url: "http://www.alexa.com/siteinfo/" } ]
 
     for measurement in measurements
       m = Measurement.create!(name: measurement[:name],
                               mtype: measurement[:mtype],
                               url:  measurement[:url])
 
-      for word in Word.all
-        MeasurementValue.create!(
-          measurement: m,
-          word: word,
-          value: rand(100) + 1,
-          collected_at: Time.at(Time.now - rand * 6.months)
-        )
+      if m.mtype == "word" 
+        for word in Word.all
+          Range.new(1.week.ago.to_i, Time.now.to_i).step(1.hour) do |time|
+            MeasurementValue.create!(
+              measurement: m,
+              word: word,
+              value: rand(100) + 1,
+              collected_at: Time.at(time)
+            )
+          end
+        end
       end
 
-      for site in Site.all
-        MeasurementValue.create!(
-          measurement: m,
-          site: site,
-          value: rand(100) + 1,
-          collected_at: Time.at(Time.now - rand * 6.months)
-        )
+      if m.mtype == "site"
+        for site in Site.all
+          Range.new(1.week.ago.to_i, Time.now.to_i).step(1.hour) do |time|
+            MeasurementValue.create!(
+              measurement: m,
+              site: site,
+              value: rand(100) + 1,
+              collected_at: Time.at(time)
+            )
+          end
+        end
       end
     end
   end

@@ -4,9 +4,8 @@ class Word < ActiveRecord::Base
 
   has_many :measurement_values
 
-  # TO FIX: make this code more flexible
-  scope :google,
-        joins('INNER JOIN measurement_values ON measurement_values.word_id = words.id')
-          .select('words.*, measurement_values.value AS google')
-          .where('measurement_values.measurement_id = 1')
+  scope :last_measurement,
+        joins('LEFT JOIN measurement_values ON measurement_values.word_id = words.id')
+          .select('DISTINCT ON (words.id, measurement_values.measurement_id) words.*, measurement_values.value')
+          .order('words.id, measurement_values.measurement_id, measurement_values.collected_at DESC')
 end

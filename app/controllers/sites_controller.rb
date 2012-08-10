@@ -3,16 +3,19 @@ class SitesController < ApplicationController
     sort = params[:sort]
     sort = "google" if sort == nil
 
-    # TO FIX: Make this code more flexible to the new measurements
-    if sort.include?("google")
-      sites_scope = Site.google
-    elsif sort.include?("alexa")
-      sites_scope = Site.alexa
+    if sort.include?("name")
+      @sites = Site.select('DISTINCT *').from('(' +
+                 Site.last_measurement.to_sql + ') sites')
+               .order(sort)
+               .paginate(page: params[:page])
     else
-      sites_scope = Site
+      order = sort.include?("DESC") ? 'value DESC' : 'value'
+      @sites = Site.select('*').from('(' +
+                 Site.last_measurement
+                   .where([ 'measurement_id = ?', Measurement.find_by_mtype_and_name('site', sort.split(' ')[0].capitalize) ]).to_sql + ') sites')
+               .order(order)
+               .paginate(page: params[:page])
     end
-
-    @sites = sites_scope.order(sort + ", sites.id ASC").paginate(page: params[:page])
   end
 
   def show
@@ -22,9 +25,8 @@ class SitesController < ApplicationController
       render :template => '/shared/_not_found'
     else
       render :template => '/shared/_show_entity',
-             :locals => { :type => 'Sites',
-                          :entity => entity,
-                          :measurements => Measurement.measurement_sites }
+             :locals => { :mtype => 'site',
+                          :entity => entity }
     end
   end
 end

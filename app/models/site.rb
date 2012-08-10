@@ -4,14 +4,8 @@ class Site < ActiveRecord::Base
 
   has_many :measurement_values
 
-  # TO FIX: make this code more flexible
-  scope :google,
-        joins('INNER JOIN measurement_values ON measurement_values.site_id = sites.id')
-          .select('sites.*, measurement_values.value AS google')
-          .where('measurement_values.measurement_id = 2')
-
-  scope :alexa,
-        joins('INNER JOIN measurement_values ON measurement_values.site_id = sites.id')
-          .select('sites.*, measurement_values.value AS alexa')
-          .where('measurement_values.measurement_id = 3')
+  scope :last_measurement,
+        joins('LEFT JOIN measurement_values ON measurement_values.site_id = sites.id')
+          .select('DISTINCT ON (sites.id, measurement_values.measurement_id) sites.*, measurement_values.value')
+          .order('sites.id, measurement_values.measurement_id, measurement_values.collected_at DESC')
 end

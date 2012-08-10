@@ -2,17 +2,19 @@
   <div class="row-fluid">
     <div class="span8">
       <% sort_name = (params[:sort] == "name") ? "name DESC" : "name" %>
-      <%= sort ? (link_to name, :sort => sort_name, :page => params[:page]) : name %>
+      <%= sort ? (link_to mtype.capitalize, :sort => sort_name, :page => params[:page]) : mtype.capitalize %>
     </div>
-    <% for measurement in measurements %>
+    <% for measurement in Measurement.find_all_by_mtype(mtype) %>
       <div class="span1">
-        <% msort = (params[:sort] == measurement.name.downcase or (params[:sort].nil? and measurement.name == "Google")) ? measurement.name.downcase + " DESC" : measurement.name.downcase %>
+        <% msort = (params[:sort] == measurement.name.downcase or 
+                     (params[:sort].nil? and measurement.name == "Google")) ? measurement.name.downcase + " DESC" : measurement.name.downcase %>
         <%= sort ? (link_to measurement.name, :sort => msort, :page => params[:page]) : measurement.name %>
       </div>
     <% end %>
   </div>
   <br/>
-  <%= render :partial => 'shared/entity',
+  <%= render :partial => 'shared/table_entity',
              :collection => entities,
-             :locals => { :measurements => measurements, :name => name } %>
+             :as => :entity,
+             :locals => { :mtype => mtype } %>
 </div>

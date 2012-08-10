@@ -8,4 +8,8 @@ class MeasurementValue < ActiveRecord::Base
   belongs_to :measurement
   belongs_to :word
   belongs_to :site
+
+  scope :latest,
+    select('DISTINCT ON (word_id, site_id) measurement_values.*')
+    .order('word_id, site_id, collected_at DESC')
 end

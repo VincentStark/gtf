@@ -5,15 +5,13 @@
 <br/>
 <%= render :partial => 'shared/table', 
            :locals => { :entities => @words,
-                        :measurements => Measurement.measurement_words,
-                        :name => "Word",
+                        :mtype => "word",
                         :sort => nil } %>
 <%= link_to "More words...", :controller => "words" %>
 <center><h3>Trending Websites</h3></center>
 <br/>
 <%= render :partial => 'shared/table',
            :locals => { :entities => @sites,
-                        :measurements => Measurement.measurement_sites,
-                        :name => "Site",
+                        :mtype => "site",
                         :sort => nil } %>
 <%= link_to "More sites...", :controller => "sites" %>

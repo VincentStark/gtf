@@ -1,9 +1,14 @@
 class StaticPagesController < ApplicationController
   def index
-    @words = Word.google.find(:all, :order => "google, words.id ASC", :limit => 5)
-    @sites = Site.google.find(:all, :order => "google, sites.id ASC", :limit => 5)
-  end
-
-  def about
+    @words = Word.select('*').from('(' +
+               Word.last_measurement
+                 .where([ 'measurement_id = ?', Measurement.find_by_mtype_and_name('word', 'Google') ]).to_sql + ') words')
+               .order(:value)
+               .limit(5)
+    @sites = Site.select('*').from('(' +
+               Site.last_measurement
+                 .where([ 'measurement_id = ?', Measurement.find_by_mtype_and_name('site', 'Google') ]).to_sql + ') sites')
+               .order(:value)
+               .limit(5)
   end
 end

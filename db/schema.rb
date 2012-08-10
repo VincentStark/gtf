@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(:version => 20120728030703) do
 
   create_table "measurements", :force => true do |t|
     t.string   "name",  :null => false
-    t.integer  "mtype",  :null => false
+    t.string   "mtype",  :null => false
     t.string   "url",  :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false

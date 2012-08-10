@@ -8,8 +8,7 @@
 
 <%= render :partial => 'shared/table',
            :locals => { :entities => @words,
-                        :measurements => Measurement.measurement_words,
-                        :name => "Word",
+                        :mtype => "word",
                         :sort => 1 } %>
 
 <%= will_paginate @words %>
