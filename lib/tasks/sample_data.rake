@@ -34,13 +34,14 @@ namespace :db do
                               mtype: measurement[:mtype],
                               url:  measurement[:url])
 
+      # Assign random "places"
       if m.mtype == "word" 
-        for word in Word.all
-          Range.new(1.week.ago.to_i, Time.now.to_i).step(1.hour) do |time|
+        Range.new(1.week.ago.to_i, Time.now.to_i).step(1.hour) do |time|
+          words.shuffle.each_with_index do |word, i|
             MeasurementValue.create!(
               measurement: m,
-              word: word,
-              value: rand(100) + 1,
+              word: Word.find_by_name(word),
+              value: i,
               collected_at: Time.at(time)
             )
           end
@@ -48,12 +49,12 @@ namespace :db do
       end
 
       if m.mtype == "site"
-        for site in Site.all
-          Range.new(1.week.ago.to_i, Time.now.to_i).step(1.hour) do |time|
+        Range.new(1.week.ago.to_i, Time.now.to_i).step(1.hour) do |time|
+          sites.shuffle.each_with_index do |site, i|
             MeasurementValue.create!(
               measurement: m,
-              site: site,
-              value: rand(100) + 1,
+              site: Site.find_by_name(site),
+              value: i,
               collected_at: Time.at(time)
             )
           end
