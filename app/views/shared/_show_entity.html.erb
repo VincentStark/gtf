@@ -16,7 +16,6 @@
         title: {
           text: "Position"
         },  
-        reversed: true,
         min: 1
       },
       series: [
@@ -25,8 +24,9 @@
         name: "<%= measurement.name %>",
         pointInterval: <%= 1.day * 1000 %>,
         pointStart: <%= 1.month.ago.at_midnight.to_i * 1000 %>,
-        data: <%= (1.month.ago.to_date..Date.today).map { |date| 
-          entity.measurement_values.find_by_measurement_id_and_collected_at(measurement.id, date.at_midnight).value}.inspect
+        data: <%= raw((1.month.ago.to_date..Date.today).map { |date| 
+          point = entity.measurement_values.find_by_measurement_id_and_collected_at(measurement.id, date.at_midnight)
+          point.nil? ? "null" : point.value })
         %>
       },
       <% end %>]

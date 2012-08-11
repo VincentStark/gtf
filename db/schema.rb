@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(:version => 20120728030703) do
     t.integer  "measurement_id", :null => false
     t.integer  "word_id"
     t.integer  "site_id"
-    t.integer  "value",        :null => false
+    t.integer  "value",        :limit => 8, :null => false
     t.datetime "collected_at", :null => false
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(:version => 20120728030703) do
 
   add_index "measurement_values", ["measurement_id", "word_id", "value", "collected_at"], :name => "index_measurement_values_composite1", :unique => true
   add_index "measurement_values", ["measurement_id", "site_id", "value", "collected_at"], :name => "index_measurement_values_composite2", :unique => true
+  add_index "measurement_values", ["measurement_id", "word_id", "site_id", "collected_at"], :name => "index_measurement_values_composite3", :unique => true
 
   create_table "measurements", :force => true do |t|
     t.string   "name",  :null => false

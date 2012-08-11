@@ -8,8 +8,8 @@ TrendFinderFrontend::Application.routes.draw do
 
   post '/search'        => 'search#index'
 
-  resources :words,  only: [ :index ]
-  resources :sites,  only: [ :index ]
+  resources :words,  only: [ :index, :create ]
+  resources :sites,  only: [ :index, :create ]
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
