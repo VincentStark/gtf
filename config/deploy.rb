@@ -1,7 +1,3 @@
-#require "bundler/capistrano"
-
-run_locally("git push bluehost")
-
 set :application, "trend-finder-frontend"
 set :domain, "global-trend-finder.com"
 set :user, "globapd6"
@@ -25,6 +21,7 @@ role :db,  domain, :primary => true
 after "deploy:restart", "deploy:cleanup"
 
 namespace :deploy do
+  run_locally("git push bluehost")
   task :restart do
     run "cd #{current_path} && bundle install"
   end
