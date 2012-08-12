@@ -1,7 +1,7 @@
 class WordsController < ApplicationController
   def index
     sort = params[:sort]
-    sort = "google" if sort == nil
+    sort = "google DESC" if sort == nil
 
     if sort.include?("name")
       @words = Word.select('DISTINCT *').from('(' +
@@ -33,24 +33,37 @@ class WordsController < ApplicationController
   def create
     respond_to do |format|
       format.json do
-        params[:data].each do |word, measurement|
-          w = Word.find_or_create_by_name(name: word)
-          collected_at = Date.today.at_midnight
-          mv = MeasurementValue.find_or_initialize_by_measurement_id_and_word_id_and_collected_at(
-            Measurement.find_by_name_and_mtype(params[:mname], 'word'),
-            w,
-            collected_at
-          )
-          mv.update_attributes({
-            measurement: Measurement.find_by_name_and_mtype(params[:mname], 'word'),
-            word: w,
-            value: measurement,
-            collected_at: collected_at
-          })
-        end 
 
-        # Everything's OK
-        render :nothing => true
+        # Simple Auth
+        if request.remote_addr == "127.0.0.1"
+          params[:data].each do |word, measurement|
+
+            # Find or create the entity itselt
+            w = Word.find_or_create_by_name(name: word)
+            collected_at = Date.today.at_midnight
+
+            # Create or update measurement value
+            mv = MeasurementValue.find_or_initialize_by_measurement_id_and_word_id_and_collected_at(
+              Measurement.find_by_name_and_mtype(params[:mname], 'word'),
+              w,
+              collected_at
+            )
+            mv.update_attributes({
+              measurement: Measurement.find_by_name_and_mtype(params[:mname], 'word'),
+              word: w,
+              value: measurement,
+              collected_at: collected_at
+            })
+          end 
+
+          # Everything's OK
+          head :ok
+
+        else
+
+          # If some rogue host tries to connect
+          head :not_found
+        end
       end
     end
   end

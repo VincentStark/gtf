@@ -3,3 +3,17 @@
 
 en:
   hello: "Hello world"
+
+  rating:
+    unit:
+      one: ""
+      other: ""
+    thousand:
+      one: "K"
+      other: "K"
+    million:
+      one: "M"
+      other: "M"
+    billion:
+      one: "B"
+      other: "B"

@@ -8,7 +8,7 @@
       <% if m.nil? %>
         -
       <% else %>
-        <%= link_to m.value,
+        <%= link_to number_to_human(m.value, :units => :rating),
             measurement.url + CGI.escape(entity.name), :target => "_blank" %>
       <% end %>
     </div>

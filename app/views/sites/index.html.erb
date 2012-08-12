@@ -4,11 +4,11 @@
 <h2>Trending Websites</h2>
 <br/>
 
-<%= will_paginate @sites %>
+<%= will_paginate @sites, :inner_window => 2 %>
 
 <%= render :partial => 'shared/table',
            :locals => { :entities => @sites,
                         :mtype => "site",
                         :sort => 1 } %>
 
-<%= will_paginate @sites %>
+<%= will_paginate @sites, :inner_window => 2 %>
