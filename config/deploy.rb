@@ -27,6 +27,7 @@ after "deploy:restart", "deploy:cleanup"
 namespace :deploy do
   task :restart do
     run "cd #{current_path} && bundle install"
+    run "cd #{current_path} && rake db:setup"
   end
 end
 

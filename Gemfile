@@ -9,7 +9,7 @@ gem 'bootstrap-sass'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 # Web server
-gem 'mongrel', '1.2.0.pre2'
+#gem 'mongrel', '1.2.0.pre2'
 
 # Thin high-performance Ruby application server
 #gem 'thin'
@@ -55,7 +55,7 @@ gem 'jquery-rails'
 # gem 'jbuilder'
 
 # Use unicorn as the web server
-#gem 'unicorn'
+gem 'unicorn'
 
 # Deploy with Capistrano
 gem 'capistrano'

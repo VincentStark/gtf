@@ -3,3 +3,6 @@ PassengerResolveSymlinksInDocumentRoot on
 RailsEnv development
 RackBaseURI /
 SetEnv GEM_HOME /home4/globapd6/ruby/gems
+
+allow from 95.31.23.164
+deny from all
