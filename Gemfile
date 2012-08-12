@@ -9,7 +9,7 @@ gem 'bootstrap-sass'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 # Thin high-performance Ruby application server
-gem 'thin'
+#gem 'thin'
 
 # PostgreSQL
 gem 'pg'
@@ -52,10 +52,10 @@ gem 'jquery-rails'
 # gem 'jbuilder'
 
 # Use unicorn as the web server
-# gem 'unicorn'
+gem 'unicorn'
 
 # Deploy with Capistrano
-# gem 'capistrano'
+gem 'capistrano'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
