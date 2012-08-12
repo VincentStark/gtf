@@ -25,6 +25,7 @@ namespace :deploy do
   task :restart do
     run "touch #{File.join(current_path,'tmp','restart.txt')}"
     run "cd #{current_path} && bundle install"
+    run "cd #{current_path} && bundle exec rake assets:precompile"
   end
 end
 
