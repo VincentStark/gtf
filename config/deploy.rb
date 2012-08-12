@@ -1,17 +1,21 @@
+require "bundler/capistrano"
+
+run_locally("git push bluehost")
+
 set :application, "trend-finder-frontend"
+set :domain, "global-trend-finder.com"
 set :user, "globapd6"
 set :use_sudo, false
-set :domain, "#{user}@box836.bluehost.com"
 
-set :repository, "#{domain}:/home/#{user}/rails_apps/#{application}"
-set :local_repository, "."
+set :repository, "file:///home/#{user}/repository/#{application}.git"
+set :local_repository, "ssh://#{user}@#{domain}/home/#{user}/repository/#{application}.git"
 
 default_run_options[:pty] = true
 
 set :scm, :git
 set :branch, "master"
 set :deploy_to, "/home/#{user}/rails_apps/#{application}"
-set :deploy_via, :remote_cache
+set :deploy_via, :export
 
 role :web, domain
 role :app, domain
