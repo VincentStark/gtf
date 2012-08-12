@@ -1,14 +1,14 @@
 <%= provide(:title, 'Home') %>
 <%= render 'shared/search' %>
 <br/>
-<center><h3>Trending Words</h3></center>
+<center><h3>Top 10 Trending Words</h3></center>
 <br/>
 <%= render :partial => 'shared/table', 
            :locals => { :entities => @words,
                         :mtype => "word",
                         :sort => nil } %>
 <%= link_to "More words...", :controller => "words" %>
-<center><h3>Trending Websites</h3></center>
+<center><h3>Top 10 Trending Websites</h3></center>
 <br/>
 <%= render :partial => 'shared/table',
            :locals => { :entities => @sites,

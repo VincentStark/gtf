@@ -36,7 +36,7 @@
 
 <%= render 'shared/search' %>
 <br/>
-<h2><%= entity.name %></h2>
+<h2><%= mtype == 'word' ? (link_to entity.name, "http://www.google.ru/search?q=\"" +  CGI.escape(entity.name) + "\"", :target => "_blank") : (link_to entity.name, "http://" + entity.name, :target => "_blank") %></h2>
 <br/>
 
 <div class="row-fluid">
