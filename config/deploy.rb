@@ -23,6 +23,7 @@ after "deploy:restart", "deploy:cleanup"
 namespace :deploy do
   run_locally("git push bluehost")
   task :restart do
+    run "touch #{File.join(current_path,'tmp','restart.txt')}"
     run "cd #{current_path} && bundle install"
   end
 end
