@@ -14,5 +14,7 @@ test:
   database: trendfinder_test
 
 production:
-  <<: *common
-  database: trendfinder_production
+  adapter: postgresql
+  username: globapd6_tf
+  password: trendfinder1545
+  database: globapd6_trendfinder
