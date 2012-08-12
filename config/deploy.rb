@@ -1,4 +1,4 @@
-require "bundler/capistrano"
+#require "bundler/capistrano"
 
 run_locally("git push bluehost")
 
@@ -23,6 +23,12 @@ role :db,  domain, :primary => true
 
 # if you want to clean up old releases on each deploy uncomment this:
 after "deploy:restart", "deploy:cleanup"
+
+namespace :deploy do
+  task :restart do
+    run "cd #{current_path} && bundle install"
+  end
+end
 
 # if you're still using the script/reaper helper you will need
 # these http://github.com/rails/irs_process_scripts
