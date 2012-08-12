@@ -1,15 +1,16 @@
 set :application, "trend-finder-frontend"
 set :user, "globapd6"
+set :use_sudo, false
 set :domain, "#{user}@box836.bluehost.com"
 
 set :repository, "#{domain}:/home/#{user}/rails_apps/#{application}"
 set :local_repository, "."
 
 default_run_options[:pty] = true
-set :use_sudo, false
 
 set :scm, :git
 set :branch, "master"
+set :deploy_to, "/home/#{user}/rails_apps/#{application}"
 set :deploy_via, :remote_cache
 
 role :web, domain
