@@ -29,4 +29,30 @@ class SitesController < ApplicationController
                           :entity => entity }
     end
   end
+
+  def create
+    respond_to do |format|
+      format.json do
+        params[:data].each do |site, measurement|
+          s = Site.find_or_create_by_name(name: site)
+          collected_at = Date.today.at_midnight
+          mv = MeasurementValue.find_or_initialize_by_measurement_id_and_site_id_and_collected_at(
+            Measurement.find_by_name_and_mtype(params[:mname], 'site'),
+            s,
+            collected_at
+          )
+          mv.update_attributes({
+            measurement: Measurement.find_by_name_and_mtype(params[:mname], 'site'),
+            site: s,
+            value: measurement,
+            collected_at: collected_at
+          })
+        end 
+
+        # Everything's OK
+        render :nothing => true
+      end
+    end
+  end
+
 end

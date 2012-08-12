@@ -36,10 +36,9 @@ class WordsController < ApplicationController
         params[:data].each do |word, measurement|
           w = Word.find_or_create_by_name(name: word)
           collected_at = Date.today.at_midnight
-          mv = MeasurementValue.find_or_initialize_by_measurement_id_and_word_id_and_value_and_collected_at(
+          mv = MeasurementValue.find_or_initialize_by_measurement_id_and_word_id_and_collected_at(
             Measurement.find_by_name_and_mtype(params[:mname], 'word'),
             w,
-            measurement,
             collected_at
           )
           mv.update_attributes({

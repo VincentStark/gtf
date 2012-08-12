@@ -4,11 +4,11 @@
   </div>
   <% for measurement in Measurement.find_all_by_mtype(mtype) %>
     <div class="span1">
-      <% value = entity.measurement_values.latest.find_by_measurement_id(measurement).value %>
-      <% if value.nil? %>
+      <% m = entity.measurement_values.latest.find_by_measurement_id(measurement) %>
+      <% if m.nil? %>
         -
       <% else %>
-        <%= link_to entity.measurement_values.latest.find_by_measurement_id(measurement).value,
+        <%= link_to m.value,
             measurement.url + CGI.escape(entity.name), :target => "_blank" %>
       <% end %>
     </div>
