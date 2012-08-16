@@ -5,4 +5,6 @@ RackBaseURI /
 SetEnv GEM_HOME /home4/globapd6/ruby/gems
 
 allow from 95.31.23.164
+allow from 66.147.244.136
+allow from 127.0.0.1
 deny from all
