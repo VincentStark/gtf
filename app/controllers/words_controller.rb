@@ -35,7 +35,7 @@ class WordsController < ApplicationController
       format.json do
 
         # Simple Auth
-        if ["127.0.0.1", "95.31.23.164"].include? request.remote_addr
+        if ["127.0.0.1", "95.31.23.164", "66.147.244.136"].include? request.remote_addr
           params[:data].each do |word, measurement|
 
             # Find or create the entity itselt

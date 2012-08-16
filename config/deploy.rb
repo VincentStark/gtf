@@ -22,11 +22,11 @@ after "deploy:restart", "deploy:cleanup"
 
 namespace :deploy do
   run_locally("git push bluehost")
-  task :restart do
-    run "touch #{File.join(current_path,'tmp','restart.txt')}"
-    run "cd #{current_path} && bundle install"
-    run "cd #{current_path} && bundle exec rake assets:precompile"
-  end
+  #task :restart do
+    #run "touch #{File.join(current_path,'tmp','restart.txt')}"
+    #run "cd #{current_path} && bundle install"
+    #run "cd #{current_path} && bundle exec rake assets:precompile"
+  #end
 end
 
 # if you're still using the script/reaper helper you will need
