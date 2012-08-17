@@ -34,8 +34,6 @@
   });
 </script>
 
-<%= render 'shared/search' %>
-<br/>
 <h2><%= mtype == 'word' ? (link_to entity.name, "http://www.google.ru/search?q=\"" +  CGI.escape(entity.name) + "\"", :target => "_blank") : (link_to entity.name, "http://" + entity.name, :target => "_blank") %></h2>
 <br/>
 
@@ -43,7 +41,7 @@
   <div class="span10" id="chart">
   </div>
   <div class="span2">
-    <% for measurement in Measurement.find_all_by_mtype(mtype) %>
+    <% Measurement.find_all_by_mtype(mtype).each do |measurement| %>
       <div class="row-fluid">
         <div class="span12">
           <b><%= measurement.name %>:</b> 
@@ -57,5 +55,11 @@
         </div>
       </div>
     <% end %>
+    <br/>
+    <div class="row-fluid">
+      <div class="span12">
+        <div class="fb-like" data-href="http://global-trend-finder.com/<%= mtype + "s/" + CGI.escape(entity.name) %>" data-send="false" data-layout="button_count" data-width="150" data-show-faces="true" data-font="arial"></div>
+      </div>
+    </div>
   </div>
 </div>
