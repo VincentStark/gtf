@@ -9,21 +9,31 @@
       title: {
         text: "Rating by Day"
       },
+      plotOptions: {
+        series: {
+          animation: false
+        }
+      },
       xAxis: {
         type: "datetime"
       },
-      yAxis: {
+      yAxis: [
+        <% Measurement.find_all_by_mtype(mtype).each_with_index do |measurement, i| %>
+      {
         title: {
-          text: "Rating"
+          text: "<%= measurement.name %>"
         },  
-        min: 1
+        min: 1,
+        opposite: <%= i % 2 == 0 ? "false" : "true" %>
       },
+      <% end %>],
       series: [
-        <% Measurement.find_all_by_mtype(mtype).each do |measurement| %>
+        <% Measurement.find_all_by_mtype(mtype).each_with_index do |measurement, i| %>
       {
         name: "<%= measurement.name %>",
         pointInterval: <%= 1.day * 1000 %>,
         pointStart: <%= 1.month.ago.at_midnight.to_i * 1000 %>,
+        yAxis: <%= i %>,
         data: <%= (1.month.ago.to_date..Date.today).map { |date| 
           point = entity.measurement_values.find_by_measurement_id_and_collected_at(measurement.id, date.at_midnight)
           point.nil? ? 0 : point.value }
