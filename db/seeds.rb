@@ -4,7 +4,7 @@
 # Seed measurements
 measurements = [ { name: "Google", mtype: "word", url: "http://www.google.com/insights/search/#&date=today%201-m&cmpt=q&q=" },
                  { name: "Google", mtype: "site", url: "http://www.google.com/insights/search/#&date=today%201-m&cmpt=q&q=" },
-                 { name: "Alexa", mtype: "site", url: "http://www.alexa.com/siteinfo/" } ]
+                 { name: "Compete", mtype: "site", url: "http://siteanalytics.compete.com/" } ]
 
 for measurement in measurements
   Measurement.create!(name: measurement[:name],
