@@ -6,7 +6,7 @@
     </div>
     <% Measurement.find_all_by_mtype(mtype).each do |measurement| %>
       <div class="span1">
-        <% msort = (params[:sort] == measurement.name.downcase + "DESC" or 
+        <% msort = (params[:sort] == measurement.name.downcase + " DESC" or 
                      (params[:sort].nil? and measurement.name == "Google")) ? measurement.name.downcase : measurement.name.downcase + " DESC" %>
         <%= sort ? (link_to measurement.name, :sort => msort, :page => params[:page]) : measurement.name %>
       </div>

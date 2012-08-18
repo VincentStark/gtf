@@ -22,9 +22,10 @@
       {
         title: {
           text: "<%= measurement.name %>"
-        },  
+        },
         min: 1,
-        opposite: <%= i % 2 == 0 ? "false" : "true" %>
+        opposite: <%= i % 2 == 0 ? "false" : "true" %>,
+        reversed: <%= measurement.name == 'Compete' ? "true" : "false" %>
       },
       <% end %>],
       series: [
@@ -36,7 +37,7 @@
         yAxis: <%= i %>,
         data: <%= (1.month.ago.to_date..Date.today).map { |date| 
           point = entity.measurement_values.find_by_measurement_id_and_collected_at(measurement.id, date.at_midnight)
-          point.nil? ? 0 : point.value }
+          point.nil? ? nil.to_json : point.value }.to_json
         %>
       },
       <% end %>]
