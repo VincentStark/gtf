@@ -8,8 +8,13 @@ TrendFinderFrontend::Application.routes.draw do
 
   post '/search'        => 'search#index'
 
-  resources :words,  only: [ :index, :create ]
-  resources :sites,  only: [ :index, :create ]
+  resources :words,    only: [ :index ]
+  resources :sites,    only: [ :index ]
+
+  # JSON API Calls
+  resources :words,    only: [ :create ], :defaults => { :format => 'json' }
+  resources :sites,    only: [ :create ], :defaults => { :format => 'json' }
+  resources :sessions, only: [ :create, :destroy ], :defaults => { :format => 'json' }
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
