@@ -1,0 +1,43 @@
+- provide(:title, mtype.capitalize + ' - ' + entity.name)
+
+/ Highcharts
+- chart_data =
+-   Measurement.find_all_by_mtype(mtype).each.map { |m|
+-     { m.name =>
+-       (1.month.ago.to_date..Date.today).map { |date|
+-         point = entity.measurement_values.find_by_measurement_id_and_collected_at(m.id, date.at_midnight)
+-         point.nil? ? nil.to_json : point.value
+-       }
+-     }
+-   }.to_json
+:javascript
+  $(document).ready(function() {
+    $.fn.showChart(#{chart_data});
+  });
+
+/ Show a link depending on an entity type
+- mtype == 'word' ? (link = 'http://www.google.ru/search?q="' +  CGI.escape(entity.name) + '"') : link = 'http://' + entity.name
+%h2= link_to entity.name, link, target: '_blank'
+
+%br
+.row-fluid
+  #chart.span10
+  .span2
+    - Measurement.find_all_by_mtype(mtype).each do |measurement|
+      .row-fluid
+        .span12
+          %b= measurement.name + ':'
+          - m = entity.measurement_values.latest.find_by_measurement_id(measurement)
+          - if m.nil?
+            \-
+          - else
+            = link_to number_to_human(m.value, units: :rating), measurement.url + CGI.escape(entity.name), target: '_blank'
+    %br
+    .row-fluid
+      .span12
+        .fb-like{'data-font' => 'arial',
+                 'data-href' => 'http://global-trend-finder.com/' + mtype + 's/' + CGI.escape(entity.name),
+                 'data-layout' => 'button_count',
+                 'data-send' => 'false',
+                 'data-show-faces' => 'true',
+                 'data-width' => '150'}

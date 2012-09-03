@@ -2,6 +2,9 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.1'
 
+# HAML
+gem 'haml-rails'
+
 # Twitter Bootstrap
 gem 'bootstrap-sass'
 
@@ -22,6 +25,9 @@ group :development do
   gem 'rspec-rails'
   gem 'annotate', '~> 2.4.1.beta'
   gem 'faker'
+  # HAML html2haml dependencies
+  gem 'hpricot'
+  gem 'ruby_parser'
 end
 
 group :test do

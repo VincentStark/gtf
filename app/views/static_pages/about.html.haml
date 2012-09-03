@@ -1,0 +1,41 @@
+- provide(:title, 'About')
+.row
+  .span8.offset1.well
+    %h2 Why is this all?
+    %br
+    %p
+      Ever wondered, how
+      = link_to 'Google Autocomplete', 'http://support.google.com/websearch/bin/answer.py?hl=en&answer=106230', target: '_blank'
+      works? How it decides which phrases to offer?
+      %br
+    %p
+      Maybe you were just curious how many
+      = link_to 'gems', 'http://www.autocompletefail.com', target: '_blank'
+      = link_to 'like', 'http://failblog.org/tag/autocomplete-me', target: '_blank'
+      = link_to 'these', 'http://www.searchenginepeople.com/blog/google-autocomplete-fails.html', target: '_blank'
+      are remain to be found?
+      %br
+    %p
+      This tool goes through the list of the most popular English words and feeds them to
+      Google Autocomplete API. Results are updated daily, and if we're finding something
+      that looks like a website, we put it in a separate table.
+      %br
+    %p
+      The results can be used as a basis for a marketing/PR campaign, to predict what is going
+      to be interesting, and just to
+      = link_to 'have fun', 'http://www.vasil-y.com/1/category/google-fun/1.html', target: '_blank'
+      %br
+      %br
+    %h3 Resources
+    %br
+    %ul.unstyled
+      %li= link_to 'Blog', 'http://vasil-y.com', target: '_blank'
+      %li= link_to 'GitHub', 'https://github.com/vasily-ponomarev', target: '_blank'
+      %li= link_to 'Habrahabr (in Russian)', 'http://habrahabr.ru/users/vponomarev/topics', target: '_blank'
+    %br
+    %h3 Contacts
+    %br
+    %address
+      %strong Help and Suggestions
+      %br
+      = mail_to 'contact@global-trend-finder.com'

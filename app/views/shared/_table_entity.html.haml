@@ -1,0 +1,12 @@
+.row-fluid.highlight
+  .span8
+    %b= link_to entity.name, mtype + 's/' + CGI.escape(entity.name)
+  - Measurement.find_all_by_mtype(mtype).each do |measurement|
+    .span1
+      - m = entity.measurement_values.latest.find_by_measurement_id(measurement)
+      - if m.nil?
+        \-
+      - else
+        = link_to number_to_human(m.value, units: :rating),
+                  measurement.url + CGI.escape(entity.name),
+                  target: '_blank' 
