@@ -21,13 +21,14 @@ gem 'pg'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
 
+# HAML html2haml dependencies (incl. assets precompile)
+gem 'hpricot'
+gem 'ruby_parser'
+
 group :development do
   gem 'rspec-rails'
   gem 'annotate', '~> 2.4.1.beta'
   gem 'faker'
-  # HAML html2haml dependencies
-  gem 'hpricot'
-  gem 'ruby_parser'
 end
 
 group :test do
