@@ -1,0 +1,30 @@
+@import "compass/css3/border-radius"
+@import "compass/css3/images"
+
+$border-radius: 4px
+
+html
+  overflow-y: scroll
+
+body
+  padding-top: 60px
+
+section
+  overflow: auto
+
+textarea
+  resize: vertical
+
+.center
+  text-align: center
+  h1
+    margin-bottom: 10px
+
+div
+  .highlight:hover
+    background-color: #ded
+    @include border-radius($border-radius)
+  .brand
+    @include background(image-url("logo.png") no-repeat left center)
+  .socials 
+    padding: 5px
