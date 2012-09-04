@@ -1,0 +1,22 @@
+!!!
+%html
+  %head
+    %meta{:'http-equiv' => 'Content-Type', :content => 'text/html; charset=utf-8' } 
+  %body
+    %p
+      %b
+        Name:
+      = @feedback.name
+    %p
+      %b
+        Email:
+      = @feedback.email
+    %p
+      %b
+        Blog:
+      = @feedback.blog
+    %p
+      %b
+        Message:
+    = simple_format(@feedback.message)
+      

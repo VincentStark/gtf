@@ -46,13 +46,13 @@
                       !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','twitter-wjs');
     .container
       .hero-unit
-        - if @error
-          .alert.alert-error
-            = @error
+        - flash.each do |key, value|
+          .alert{class: 'alert-' + key.to_s}= value
         = yield
     / TOFIX: center footer alignment
     %footer
-      .container.center
+      .container
         %ul.nav.nav-pills
           %li{class: current_page?(about_path) ? 'active' : nil}= link_to 'About', about_path
+          %li{class: current_page?(feedback_path) ? 'active' : nil}= link_to 'Feedback', feedback_path
           %li= link_to 'Blog', 'http://vasil-y.com', target: '_blank'

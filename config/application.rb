@@ -55,5 +55,23 @@ module TrendFinderFrontend
 
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
+
+    # SASS is preferred
+    config.sass.preferred_syntax = :sass
+
+    # Email Config
+    #config.action_mailer.smtp_settings = {
+    #  :address              => "mail.global-trend-finder.com",
+    #  :port                 => 26,
+    #  :domain               => "global-trend-finder.com",
+    #  :user_name            => "feedback@global-trend-finder.com",
+    #  :password             => "uX8YAgMH",
+      #:authentication       => :plain,
+      #:enable_starttls_auto => true
+    #}
+
+    #config.action_mailer.default_url_options = {
+    #  :host => "mail.global-trend-finder.com"
+    #}
   end
 end

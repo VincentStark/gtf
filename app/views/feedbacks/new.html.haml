@@ -1,0 +1,22 @@
+- provide(:title, 'Feedback')
+.row
+  .span8.offset1.well
+    %h2 Feedback
+    %br
+    = form_for @feedback, url: feedback_path do |f|
+      = f.label :name, 'Your name', class: 'required'
+      = f.text_field :name, placeholder: 'John Smith', class: 'input-large'
+      = f.label :email, 'Email (I won\'t send any spam, I promise)', class: 'required'
+      = f.text_field :email, placeholder: 'jsmith@company.com', class: 'input-large'
+      = f.label :blog, 'Website or Blog (I\'m always curious!)'
+      = f.text_field :blog, placeholder: 'john-smith.com', class: 'input-large'
+      = f.label :message, 'Please let me know what you think ;)', class: 'required'
+      = f.text_area :message, rows: 10, class: 'input-xxlarge'
+      %p
+        %small
+          Fields marked with
+          %span.required
+          are required
+      .control-group
+        .controls
+          = f.submit 'Here you go!', class: 'btn btn-primary'
