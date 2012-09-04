@@ -1,6 +1,9 @@
 # Automatic "bundle install" after deploy
 require 'bundler/capistrano'
 
+# Assets precompile
+load 'deploy/assets'
+
 # Application name
 set :application, "trend-finder-frontend"
 
