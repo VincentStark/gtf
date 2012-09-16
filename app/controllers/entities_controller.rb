@@ -4,12 +4,20 @@ class EntitiesController < ApplicationController
 
   def index_words
     @entities = Entity.words.sorted(params[:sort]).paginate(page: params[:page])
-    render 'index'
+    if @entities.length > 0
+      render 'index'
+    else
+      render 'not_found'
+    end
   end
 
   def index_sites
     @entities = Entity.sites.sorted(params[:sort]).paginate(page: params[:page])
-    render 'index'
+    if @entities.length > 0
+      render 'index'
+    else
+      render 'not_found'
+    end
   end
 
   def show_word
