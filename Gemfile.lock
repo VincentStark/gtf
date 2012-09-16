@@ -35,6 +35,8 @@ GEM
     bootstrap-will_paginate (0.0.7)
       will_paginate
     builder (3.0.0)
+    cane (2.3.0)
+      parallel
     capistrano (2.12.0)
       highline
       net-scp (>= 1.0.0)
@@ -111,6 +113,7 @@ GEM
     net-ssh-gateway (1.1.0)
       net-ssh (>= 1.99.1)
     nokogiri (1.5.2)
+    parallel (0.5.18)
     pg (0.13.2)
     polyglot (0.3.3)
     rack (1.4.1)
@@ -196,6 +199,7 @@ DEPENDENCIES
   annotate (~> 2.4.1.beta)
   bootstrap-sass
   bootstrap-will_paginate
+  cane
   capistrano
   capybara
   coffee-rails (~> 3.2.1)

@@ -41,7 +41,7 @@ class EntitiesController < ApplicationController
   def create_words
     params[:data].each do |name, measurement|
       Entity.words.create_or_update(name, params[:mname], measurement)
-    end 
+    end
 
     head :ok
   end
@@ -49,7 +49,7 @@ class EntitiesController < ApplicationController
   def create_sites
     params[:data].each do |name, measurement|
       Entity.sites.create_or_update(name, params[:mname], measurement)
-    end 
+    end
 
     head :ok
   end

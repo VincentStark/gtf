@@ -13,10 +13,17 @@ class Entity < ActiveRecord::Base
     where(:etype => 2)
 
   scope :last_measurement,
-    joins('LEFT JOIN measurement_values ON measurement_values.entity_id = entities.id')
-      .select('DISTINCT ON (entities.id, measurement_values.measurement_id) entities.*, measurement_values.value')
-      .order('entities.id, measurement_values.measurement_id, measurement_values.collected_at DESC')
-  
+    joins('LEFT JOIN
+             measurement_values
+           ON
+             measurement_values.entity_id = entities.id')
+      .select('DISTINCT ON
+                 (entities.id, measurement_values.measurement_id) entities.*,
+                 measurement_values.value')
+      .order('entities.id,
+              measurement_values.measurement_id,
+              measurement_values.collected_at DESC')
+
   scope :google,
     where([ 'measurement_id = ?', Measurement.find_by_name('Google') ])
 
@@ -31,7 +38,8 @@ class Entity < ActiveRecord::Base
   def self.search(query)
     Entity
       .topN(100)
-      .where([ "name ILIKE ? ESCAPE '!'", "%" + query.gsub(/[!%_]/) { |x| '!' + x } + "%"])
+      .where([ "name ILIKE ? ESCAPE '!'", "%" +
+        query.gsub(/[!%_]/) { |x| '!' + x } + "%"])
   end
 
   def self.sorted(field)
@@ -43,9 +51,14 @@ class Entity < ActiveRecord::Base
       field_optimized = field.include?('DESC') ? 'value DESC' : 'value'
       Entity
         .select('*')
-        .from('(' + Entity
-                      .last_measurement
-                      .where([ 'measurement_id = ?', Measurement.find_by_name(field.split(' ')[0].capitalize) ]).to_sql + ') entities')
+        .from('(' +
+          Entity
+            .last_measurement
+            .where([
+              'measurement_id = ?',
+              Measurement.find_by_name(field.split(' ')[0].capitalize)
+            ]).to_sql +
+        ') entities')
         .order(field_optimized)
     end
   end
@@ -58,11 +71,12 @@ class Entity < ActiveRecord::Base
     collected_at = Date.today.at_midnight
 
     # Create or update measurement value
-    mv = MeasurementValue.find_or_initialize_by_measurement_id_and_entity_id_and_collected_at(
-      m,
-      e,
-      collected_at
-    )
+    mv = MeasurementValue
+      .find_or_initialize_by_measurement_id_and_entity_id_and_collected_at(
+        m,
+        e,
+        collected_at
+      )
 
     mv.update_attributes({
       measurement: m,
