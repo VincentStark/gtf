@@ -1,9 +1,7 @@
 - provide(:title, 'Search')
 - if !@words.nil?
   %h2 Search Results - Words (#{@words.length})
-  %br
-  = render partial: 'shared/table', locals: { entities: @words, mtype: 'word', sort: nil }
+  = render partial: 'shared/table', locals: { entities: @words, is_sortable: false }
 - if !@sites.nil?
   %h2 Search Results - Sites (#{@sites.length})
-  %br
-  = render partial: 'shared/table', locals: { entities: @sites, mtype: 'site', sort: nil }
+  = render partial: 'shared/table', locals: { entities: @sites, is_sortable: false }

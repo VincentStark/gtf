@@ -9,8 +9,8 @@ namespace :db do
               "leverage", "matrices", "matrix", "methodology", "middleware", "migration", 
               "support", "synergy", "system engine", "task-force", "throughput", "time-frame" ]
 
-    for word in words
-      Word.create!(name: word)
+    words.map do |word|
+      Entity.words.create!(name: word)
     end
 
     # Fill sites
@@ -20,27 +20,20 @@ namespace :db do
               "etc.uhaul.net", "examiner.net", "fieldglass.net", "flowhot.net", "frontiernet.net",
               "groceries.net", "guessmovies.net", "laworks.net", "paint.net", "secureserver.net" ]
 
-    for site in sites
-      Site.create!(name: site)
+    sites.map do |site|
+      Entity.sites.create!(name: site)
     end
 
-    # Fill measurements
-    measurements = [ { name: "Google", mtype: "word", url: "http://www.google.com/insights/search/#&date=today%201-m&cmpt=q&q=" },
-                     { name: "Google", mtype: "site", url: "http://www.google.com/insights/search/#&date=today%201-m&cmpt=q&q=" },
-                     { name: "Compete", mtype: "site", url: "http://siteanalytics.compete.com/" } ]
+    # Add measurements
+    Measurement.all.map do |m|
 
-    for measurement in measurements
-      m = Measurement.create!(name: measurement[:name],
-                              mtype: measurement[:mtype],
-                              url:  measurement[:url])
-
-      # Assign random "places"
-      if m.mtype == "word" 
+      # Assign random "rating"
+      if m.name == "Google"
         (1.month.ago.to_date..Date.today).map do |date|
           words.shuffle.each_with_index do |word, i|
             MeasurementValue.create!(
               measurement: m,
-              word: Word.find_by_name(word),
+              entity: Entity.words.find_by_name(word),
               value: i,
               collected_at: date.at_midnight
             )
@@ -48,12 +41,12 @@ namespace :db do
         end
       end
 
-      if m.mtype == "site"
+      if [ "Google", "Compete" ].include? m.name
         (1.month.ago.to_date..Date.today).map do |date|
           sites.shuffle.each_with_index do |site, i|
             MeasurementValue.create!(
               measurement: m,
-              site: Site.find_by_name(site),
+              entity: Entity.sites.find_by_name(site),
               value: i,
               collected_at: date.at_midnight
             )

@@ -15,27 +15,24 @@ ActiveRecord::Schema.define(:version => 20120818081418) do
 
   create_table "measurement_values", :force => true do |t|
     t.integer  "measurement_id",              :null => false
-    t.integer  "word_id"
-    t.integer  "site_id"
+    t.integer  "entity_id",                   :null => false
     t.integer  "value",          :limit => 8, :null => false
     t.datetime "collected_at",                :null => false
     t.datetime "created_at",                  :null => false
     t.datetime "updated_at",                  :null => false
   end
 
-  add_index "measurement_values", ["measurement_id", "site_id", "value", "collected_at"], :name => "index_measurement_values_composite2", :unique => true
-  add_index "measurement_values", ["measurement_id", "word_id", "site_id", "collected_at"], :name => "index_measurement_values_composite3", :unique => true
-  add_index "measurement_values", ["measurement_id", "word_id", "value", "collected_at"], :name => "index_measurement_values_composite1", :unique => true
+  add_index "measurement_values", ["measurement_id", "entity_id", "value", "collected_at"], :name => "index_measurement_values_composite1", :unique => true
+  add_index "measurement_values", ["measurement_id", "entity_id", "collected_at"], :name => "index_measurement_values_composite2", :unique => true
 
   create_table "measurements", :force => true do |t|
     t.string   "name",       :null => false
-    t.string   "mtype",      :null => false
     t.string   "url",        :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
-  add_index "measurements", ["name", "mtype", "url"], :name => "index_measurements_on_name_mtype_url", :unique => true
+  add_index "measurements", ["name", "url"], :name => "index_measurements_on_name_url", :unique => true
 
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
@@ -47,20 +44,14 @@ ActiveRecord::Schema.define(:version => 20120818081418) do
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
-  create_table "sites", :force => true do |t|
+  create_table "entities", :force => true do |t|
     t.string   "name",       :null => false
+    t.integer  "etype",      :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
-  add_index "sites", ["name"], :name => "index_sites_on_name", :unique => true
-
-  create_table "words", :force => true do |t|
-    t.string   "name",       :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "words", ["name"], :name => "index_words_on_name", :unique => true
+  add_index "entities", ["name"], :name => "index_entities_on_name", :unique => true
+  add_index "entities", ["name", "etype"], :name => "index_entities_on_name_etype", :unique => true
 
 end

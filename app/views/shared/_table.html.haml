@@ -1,12 +1,9 @@
 .container-fluid.well
   .row-fluid
-    .span8
-      - sort_name = (params[:sort] == 'name') ? 'name DESC' : 'name'
-      = sort ? (link_to mtype.capitalize, sort: sort_name, page: params[:page]) : mtype.capitalize
-    - Measurement.find_all_by_mtype(mtype).each do |measurement|
+    .span8.header
+      = is_sortable ? (link_to 'Name', sort: params[:sort] == 'name' ? 'name DESC' : 'name', page: params[:page]) : 'Name'
+    - entities.map { |e| e.measurements.map { |m| m.name }}.flatten.uniq.map do |mname|
       .span1
-        - msort = (params[:sort] == measurement.name.downcase + ' DESC' or
-        - (params[:sort].nil? and measurement.name == 'Google')) ? measurement.name.downcase : measurement.name.downcase + ' DESC'
-        = sort ? (link_to measurement.name, sort: msort, page: params[:page]) : measurement.name
-  %br
-  = render partial: 'shared/table_entity', collection: entities, as: :entity, locals: { mtype: mtype }
+        - msort = (params[:sort] == mname.downcase + ' DESC' or (params[:sort].nil? and mname == 'Google')) ? mname.downcase : mname.downcase + ' DESC'
+        = is_sortable ? (link_to mname, sort: msort, page: params[:page]) : mname
+  = render partial: 'shared/table_entry', collection: entities, as: :entity

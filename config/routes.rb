@@ -5,17 +5,19 @@ TrendFinderFrontend::Application.routes.draw do
   match '/about'       => 'static_pages#about'
   match '/feedback'    => 'feedbacks#new', :as => 'feedback', :via => :get
   match '/feedback'    => 'feedbacks#create', :as => 'feedback', :via => :post
-  match '/words/:name' => 'words#show', :constraints => { :name => /.*/ }
-  match '/sites/:name' => 'sites#show', :constraints => { :name => /.*/ }
+
+  match '/words'       => 'entities#index_words'
+  match '/sites'       => 'entities#index_sites'
+
+  match '/words'       => 'entities#create_words', :defaults => { :format => 'json' }, :via => :post
+  match '/sites'       => 'entities#create_sites', :defaults => { :format => 'json' }, :via => :post
+
+  match '/words/:name' => 'entities#show_word', :constraints => { :name => /.*/ }
+  match '/sites/:name' => 'entities#show_site', :constraints => { :name => /.*/ }
 
   post '/search'        => 'search#index'
 
-  resources :words,    only: [ :index ]
-  resources :sites,    only: [ :index ]
-
   # JSON API Calls
-  resources :words,    only: [ :create ], :defaults => { :format => 'json' }
-  resources :sites,    only: [ :create ], :defaults => { :format => 'json' }
   resources :sessions, only: [ :create, :destroy ], :defaults => { :format => 'json' }
 
   # The priority is based upon order of creation:

@@ -1,6 +1,6 @@
 class StaticPagesController < ApplicationController
   def index
-    @words = Word.topN(7)
-    @sites = Site.topN(7)
+    @words = Entity.words.topN(7)
+    @sites = Entity.sites.topN(7)
   end
 end

@@ -2,7 +2,6 @@
 .row
   .span8.offset1.well
     %h2 Why is this all?
-    %br
     %p
       Ever wondered, how
       = link_to 'Google Autocomplete', 'http://support.google.com/websearch/bin/answer.py?hl=en&answer=106230', target: '_blank'
@@ -26,9 +25,11 @@
       = link_to 'have fun', 'http://www.vasil-y.com/1/category/google-fun/1.html', target: '_blank'
       %br
       %br
-    %h3 Resources
-    %br
+    %h2 Resources
     %ul.unstyled
-      %li= link_to 'Blog', 'http://vasil-y.com', target: '_blank'
-      %li= link_to 'GitHub', 'https://github.com/vasily-ponomarev', target: '_blank'
-      %li= link_to 'Habrahabr (in Russian)', 'http://habrahabr.ru/users/vponomarev/topics', target: '_blank'
+      %h4
+        %li= link_to 'Blog', 'http://vasil-y.com', target: '_blank'
+      %h4
+        %li= link_to 'GitHub', 'https://github.com/vasily-ponomarev', target: '_blank'
+      %h4
+        %li= link_to 'Habrahabr (in Russian)', 'http://habrahabr.ru/users/vponomarev/topics', target: '_blank'

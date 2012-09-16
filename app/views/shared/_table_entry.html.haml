@@ -1,0 +1,12 @@
+.row-fluid.highlight
+  .span8
+    %b= link_to entity.name, ['words/', 'sites/'][entity.etype - 1] + CGI.escape(entity.name)
+  - entity.measurements.uniq.map do |m|
+    .span1
+      - mv = entity.measurement_values.latest.find_by_measurement_id(m)
+      - if mv.nil?
+        \-
+      - else
+        = link_to number_to_human(mv.value, units: :rating),
+                  m.url + CGI.escape(entity.name),
+                  target: '_blank' 

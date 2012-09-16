@@ -1,0 +1,5 @@
+- provide(:title, ['Words', 'Sites'][@entities[0].etype - 1])
+%h2 Trending #{['Words', 'Websites'][@entities[0].etype - 1]}
+= will_paginate @entities, inner_window: 2
+= render partial: 'shared/table', locals: { entities: @entities, is_sortable: true }
+= will_paginate @entities, inner_window: 2

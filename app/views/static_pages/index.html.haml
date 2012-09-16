@@ -1,11 +1,7 @@
 - provide(:title, 'Home')
-%center
-  %h3 Top 7 Trending Words
-%br
-= render partial: 'shared/table', locals: { entities: @words, mtype: 'word', sort: nil }
-= link_to 'More words...', controller: 'words'
-%center
-  %h3 Top 7 Trending Websites
-%br
-= render partial: 'shared/table', locals: { entities: @sites, mtype: 'site', sort: nil }
-= link_to 'More sites...', controller: 'sites'
+%h3 Top 7 Trending Words
+= render partial: 'shared/table', locals: { entities: @words, is_sortable: false }
+= link_to 'More words...', 'words/'
+%h3 Top 7 Trending Websites
+= render partial: 'shared/table', locals: { entities: @sites, is_sortable: false }
+= link_to 'More sites...', 'sites/'
