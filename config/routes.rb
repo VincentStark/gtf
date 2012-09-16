@@ -2,20 +2,20 @@ TrendFinderFrontend::Application.routes.draw do
 
   root :to => 'static_pages#index'
 
-  match '/about'       => 'static_pages#about'
-  match '/feedback'    => 'feedbacks#new', :as => 'feedback', :via => :get
-  match '/feedback'    => 'feedbacks#create', :as => 'feedback', :via => :post
+  get  '/about'       => 'static_pages#about'
+  get  '/feedback'    => 'feedbacks#new', :as => 'feedback'
+  post '/feedback'    => 'feedbacks#create', :as => 'feedback'
 
-  match '/words'       => 'entities#index_words'
-  match '/sites'       => 'entities#index_sites'
+  get  '/words'       => 'entities#index_words'
+  get  '/sites'       => 'entities#index_sites'
 
-  match '/words'       => 'entities#create_words', :defaults => { :format => 'json' }, :via => :post
-  match '/sites'       => 'entities#create_sites', :defaults => { :format => 'json' }, :via => :post
+  post '/words'       => 'entities#create_words', :defaults => { :format => 'json' }
+  post '/sites'       => 'entities#create_sites', :defaults => { :format => 'json' }
 
-  match '/words/:name' => 'entities#show_word', :constraints => { :name => /.*/ }
-  match '/sites/:name' => 'entities#show_site', :constraints => { :name => /.*/ }
+  get  '/words/:name' => 'entities#show_word', :constraints => { :name => /.*/ }
+  get  '/sites/:name' => 'entities#show_site', :constraints => { :name => /.*/ }
 
-  post '/search'        => 'search#index'
+  post '/search'      => 'search#index'
 
   # JSON API Calls
   resources :sessions, only: [ :create, :destroy ], :defaults => { :format => 'json' }
