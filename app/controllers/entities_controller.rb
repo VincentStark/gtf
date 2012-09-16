@@ -14,12 +14,20 @@ class EntitiesController < ApplicationController
 
   def show_word
     @entity = Entity.words.find_by_name(CGI.unescape(params[:name]))
-    render 'show'
+    if !@entity.nil?
+      render 'show'
+    else
+      render 'not_found'
+    end
   end
 
   def show_site
     @entity = Entity.sites.find_by_name(CGI.unescape(params[:name]))
-    render 'show'
+    if !@entity.nil?
+      render 'show'
+    else
+      render 'not_found'
+    end
   end
 
   def create_words
