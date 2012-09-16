@@ -5,7 +5,7 @@ require 'bundler/capistrano'
 load 'deploy/assets'
 
 # Application name
-set :application, "trend-finder-frontend"
+set :application, "global-trend-finder"
 
 # BlueHost SSH user
 set :user, "globapd6"
