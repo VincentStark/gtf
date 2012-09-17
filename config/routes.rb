@@ -2,6 +2,11 @@ TrendFinderFrontend::Application.routes.draw do
 
   devise_for :users
 
+  #devise_scope :user do
+  #  get "/login" => "devise/sessions#new"
+  #  delete "/logout" => "devise/sessions#destroy"
+  #end
+
   root :to => 'static_pages#index'
 
   get  '/about'       => 'static_pages#about'

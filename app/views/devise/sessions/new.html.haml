@@ -1,0 +1,17 @@
+- provide(:title, 'Sign in')
+.row
+  .span4.offset3.well
+    %h2 Sign in
+    = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f|
+      = f.label :email
+      = f.email_field :email
+      = f.label :password
+      = f.password_field :password
+      - if devise_mapping.rememberable?
+        .control-group
+          .controls
+            %label.checkbox
+              = f.check_box :remember_me
+              Remember me
+      = f.submit "Sign in", class: "btn btn-primary"
+    = render "devise/shared/links"
