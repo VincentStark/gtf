@@ -86,4 +86,11 @@ class Entity < ActiveRecord::Base
     })
   end
 
+  def type
+    ['Words', 'Sites'][etype - 1]
+  end
+
+  def type_lower
+    type.downcase
+  end
 end

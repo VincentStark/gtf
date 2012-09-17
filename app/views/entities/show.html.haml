@@ -1,4 +1,4 @@
-- provide(:title, ['Word - ', 'Site - '][@entity.etype - 1] + @entity.name)
+- provide(:title, @entity.type + ' - ' + @entity.name)
 
 / Highcharts
 - chart_data =
@@ -36,7 +36,7 @@
     .row-fluid
       .span12
         .fb-like{'data-font' => 'arial',
-                 'data-href' => 'http://global-trend-finder.com/' + ['words/', 'sites/'][@entity.etype - 1] + CGI.escape(@entity.name),
+                 'data-href' => 'http://global-trend-finder.com/' + @entity.type_lower + '/' + CGI.escape(@entity.name),
                  'data-layout' => 'button_count',
                  'data-send' => 'false',
                  'data-show-faces' => 'true',
