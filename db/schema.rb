@@ -11,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120818081418) do
+ActiveRecord::Schema.define(:version => 20120917135722) do
+
+  create_table "entities", :force => true do |t|
+    t.string   "name",       :null => false
+    t.integer  "etype",      :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "entities", ["name", "etype"], :name => "index_entities_on_name_etype", :unique => true
+  add_index "entities", ["name"], :name => "index_entities_on_name", :unique => true
 
   create_table "measurement_values", :force => true do |t|
     t.integer  "measurement_id",              :null => false
@@ -22,8 +32,8 @@ ActiveRecord::Schema.define(:version => 20120818081418) do
     t.datetime "updated_at",                  :null => false
   end
 
-  add_index "measurement_values", ["measurement_id", "entity_id", "value", "collected_at"], :name => "index_measurement_values_composite1", :unique => true
   add_index "measurement_values", ["measurement_id", "entity_id", "collected_at"], :name => "index_measurement_values_composite2", :unique => true
+  add_index "measurement_values", ["measurement_id", "entity_id", "value", "collected_at"], :name => "index_measurement_values_composite1", :unique => true
 
   create_table "measurements", :force => true do |t|
     t.string   "name",       :null => false
@@ -44,14 +54,22 @@ ActiveRecord::Schema.define(:version => 20120818081418) do
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
-  create_table "entities", :force => true do |t|
-    t.string   "name",       :null => false
-    t.integer  "etype",      :null => false
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+  create_table "users", :force => true do |t|
+    t.string   "email",                  :default => "", :null => false
+    t.string   "encrypted_password",     :default => "", :null => false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          :default => 0
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
   end
 
-  add_index "entities", ["name"], :name => "index_entities_on_name", :unique => true
-  add_index "entities", ["name", "etype"], :name => "index_entities_on_name_etype", :unique => true
+  add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
 end

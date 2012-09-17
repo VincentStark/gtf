@@ -25,6 +25,9 @@ gem 'bootstrap-will_paginate'
 gem 'hpricot'
 gem 'ruby_parser'
 
+# Devise
+gem 'devise'
+
 group :development do
   gem 'rspec-rails'
   gem 'annotate', '~> 2.4.1.beta'

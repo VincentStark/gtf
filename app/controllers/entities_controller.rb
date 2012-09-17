@@ -1,6 +1,7 @@
 class EntitiesController < ApplicationController
   protect_from_forgery except: [ :create_words, :create_sites ]
   before_filter :trusted_collector, only: [ :create_words, :create_sites ]
+  before_filter :authenticate_user!
 
   def index_words
     @entities = Entity.words.sorted(params[:sort]).paginate(page: params[:page])
