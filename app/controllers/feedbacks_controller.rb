@@ -12,7 +12,7 @@ class FeedbacksController < ApplicationController
       redirect_to(root_path,
         :flash => { :success => 'Feedback was successfully sent, thank you!' })
     else
-      flash.now[:error] = @feedback.errors.full_messages[0]
+      flash.now[:error] = @feedback.errors.full_messages.first
       render :new
     end
   end

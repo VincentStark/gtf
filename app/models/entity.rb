@@ -56,7 +56,7 @@ class Entity < ActiveRecord::Base
             .last_measurement
             .where([
               'measurement_id = ?',
-              Measurement.find_by_name(field.split(' ')[0].capitalize)
+              Measurement.find_by_name(field.split(' ').first.capitalize)
             ]).to_sql +
         ') entities')
         .order(field_optimized)
