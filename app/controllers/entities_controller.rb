@@ -7,7 +7,8 @@ class EntitiesController < ApplicationController
     if @entities.length > 0
       render 'index'
     else
-      render 'not_found'
+      flash[:warning] = 'Words list is empty'
+      redirect_to root_path
     end
   end
 
@@ -16,7 +17,8 @@ class EntitiesController < ApplicationController
     if @entities.length > 0
       render 'index'
     else
-      render 'not_found'
+      flash[:warning] = 'Sites list is empty'
+      redirect_to root_path
     end
   end
 
@@ -25,7 +27,8 @@ class EntitiesController < ApplicationController
     if !@entity.nil?
       render 'show'
     else
-      render 'not_found'
+      flash[:error] = 'Word is not found'
+      redirect_to root_path
     end
   end
 
@@ -34,7 +37,8 @@ class EntitiesController < ApplicationController
     if !@entity.nil?
       render 'show'
     else
-      render 'not_found'
+      flash[:error] = 'Site is not found'
+      redirect_to root_path
     end
   end
 
