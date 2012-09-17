@@ -76,8 +76,6 @@ TrendFinderFrontend::Application.configure do
     :enable_starttls_auto => true
   }
 
-  config.action_mailer.default_url_options = {
-    :host => "global-trend-finder.com"
-  }
+  config.action_mailer.default_url_options = { :host => "global-trend-finder.com" }
  
 end
