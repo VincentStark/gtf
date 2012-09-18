@@ -19,8 +19,8 @@ set :use_sudo, false
 # git is our SCM
 set :scm, :git
 
-# master is our default git branch
-set :branch, "master"
+# gtf is our default git branch
+set :branch, "gtf"
 
 # Use local git repository
 set :repository, "."
