@@ -15,7 +15,3 @@ provides data both in real-time and in a historical perspective.
 ** Get a list of trending sites, arranged by the number of searches
 ** Show a diagram of how sites positions change over time
 
-
-== TODO
-* Use trending words from Google itself: http://www.google.com/insights/search/#cat=0-13-302&date=today%207-d&cmpt=q
-* Get stats from different sources on websites mentioned
