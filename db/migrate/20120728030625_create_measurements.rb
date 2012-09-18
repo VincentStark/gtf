@@ -7,6 +7,6 @@ class CreateMeasurements < ActiveRecord::Migration
       t.timestamps
     end
 
-    add_index :measurements, [ :name, :url ], unique: true
+    add_index :measurements, [ :name, :url ]
   end
 end

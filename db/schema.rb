@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(:version => 20120917220305) do
     t.datetime "updated_at", :null => false
   end
 
-  add_index "measurements", ["name", "url"], :name => "index_measurements_on_name_url", :unique => true
+  add_index "measurements", ["name", "url"], :name => "index_measurements_on_name_url"
 
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
