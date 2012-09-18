@@ -1,12 +1,5 @@
 TrendFinderFrontend::Application.routes.draw do
 
-  devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
-
-  #devise_scope :user do
-  #  get "/login" => "devise/sessions#new"
-  #  delete "/logout" => "devise/sessions#destroy"
-  #end
-
   root :to => 'static_pages#index'
 
   get  '/about'       => 'static_pages#about'
@@ -25,7 +18,7 @@ TrendFinderFrontend::Application.routes.draw do
   post '/search'      => 'search#index'
 
   # JSON API Calls
-  #resources :sessions, only: [ :create, :destroy ], :defaults => { :format => 'json' }
+  resources :sessions, only: [ :create, :destroy ], :defaults => { :format => 'json' }
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

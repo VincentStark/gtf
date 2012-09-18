@@ -25,11 +25,6 @@
               %li.divider-vertical
               = form_for :search, url: search_path, html: { class: 'navbar-search pull-left' } do |f|
                 = f.text_field :query, placeholder: 'Search', class: 'search-query'
-            %ul.nav.pull-right
-              - if user_signed_in?
-                %li{class: current_page?(destroy_user_session_path) ? 'active' : nil}= link_to 'Sign out', destroy_user_session_path, method: :delete
-              - else
-                %li{class: current_page?(new_user_session_path) ? 'active' : nil}= link_to 'Sign in', new_user_session_path
     .container
       .hero-unit
         - flash.each do |key, value|
