@@ -1,16 +1,17 @@
-=== What is it for?
+== What is it for?
 
 Looks up Google Instant for the most common words (e.g. Oxford 3000) and then
 provides data both in real-time and in a historical perspective.
 
 
-=== What it can do?
+== What it can do?
 
-* Words
-** Search for trending words
-** Get full list of words
-** View number of searches for each of word
-** Show a diagram of how words positions change over time
-* Websites
-** Get a list of trending sites, arranged by the number of searches
-** Show a diagram of how sites positions change over time
+=== Words
+* Search for trending words
+* Get full list of words
+* View number of searches for each of word
+* Show a diagram of how words positions change over time
+
+=== Websites
+* Get a list of trending sites, arranged by the number of searches
+* Show a diagram of how sites positions change over time
