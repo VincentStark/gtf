@@ -14,4 +14,3 @@ provides data both in real-time and in a historical perspective.
 * Websites
 ** Get a list of trending sites, arranged by the number of searches
 ** Show a diagram of how sites positions change over time
-
