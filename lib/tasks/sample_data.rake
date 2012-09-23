@@ -3,10 +3,10 @@ namespace :db do
   task populate: :environment do
 
     # Fill words
-    words = [ "ability", "access", "adapter", "algorithm", "alliance", "analyzer", "application", 
+    words = [ "ability", "access", "adapter", "algorithm", "alliance", "analyzer", "application",
               "approach", "architecture", "archive", "artificial intelligence", "array", "attitude",
-              "complexity", "concept", "conglomeration", "contingency", "core", "customer", 
-              "leverage", "matrices", "matrix", "methodology", "middleware", "migration", 
+              "complexity", "concept", "conglomeration", "contingency", "core", "customer",
+              "leverage", "matrices", "matrix", "methodology", "middleware", "migration",
               "support", "synergy", "system engine", "task-force", "throughput", "time-frame" ]
 
     words.map do |word|

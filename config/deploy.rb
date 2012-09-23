@@ -35,7 +35,7 @@ server domain, :app, :web, :db, :primary => true
 namespace :deploy do
   task :start do ; end
   task :stop do ; end
-  
+
   # Touch tmp/restart.txt to tell Phusion Passenger about new version
   task :restart, :roles => :app, :except => { :no_release => true } do
     run "touch #{File.join(current_path, 'tmp', 'restart.txt')}"
