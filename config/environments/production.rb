@@ -65,11 +65,4 @@ TrendFinderFrontend::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
-  # Email Config
-  config.action_mailer.smtp_settings = {
-    :address              => "box836.bluehost.com",
-    :port                 => 26,
-    :user_name            => "feedback+global-trend-finder.com",
-    :password             => "uX8YAgMH",
-  }
 end
