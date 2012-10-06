@@ -15,6 +15,6 @@ test:
 
 production:
   adapter: postgresql
-  username: globapd6_tf
-  password: trendfinder1545
-  database: globapd6_trendfinder
+  database: gtf
+  username: gtf
+  password: gtf675
