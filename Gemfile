@@ -12,7 +12,7 @@ gem 'bootstrap-sass'
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 # Thin high-performance Ruby application server
-gem 'thin'
+#gem 'thin'
 
 # PostgreSQL
 gem 'pg'
@@ -27,6 +27,7 @@ gem 'ruby_parser'
 
 # Better compatibility
 gem 'bigdecimal'
+gem 'minitest'
 
 group :development do
   gem 'rspec-rails'
@@ -65,7 +66,7 @@ gem 'jquery-rails'
 # gem 'jbuilder'
 
 # Use unicorn as the web server
-#gem 'unicorn'
+gem 'unicorn'
 
 # Deploy with Capistrano
 gem 'capistrano'
