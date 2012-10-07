@@ -1,4 +1,3 @@
-$:.unshift(File.expand_path('./lib', ENV['rvm_path']))
 # Automatic "bundle install" after deploy
 require "bundler/capistrano"
 
@@ -48,17 +47,22 @@ before "deploy:setup", "rvm:install_ruby"
 
 # Use default rvm version
 after "deploy:setup", "deploy:set_rvm_version"
+
+# Fix log/ and pids/ permissions
 after "deploy:setup", "deploy:fix_setup_permissions"
 
+# Fix tmp/ permissions
+before "deploy:start", "deploy:fix_permissions"
+
 # Unicorn config
-set :unicorn_binary, "bundle --gemfile #{current_path}/Gemfile exec unicorn_rails"
 set :unicorn_config, "#{current_path}/config/unicorn.conf.rb"
+set :unicorn_binary, "bash -c 'source /etc/profile.d/rvm.sh && bundle exec unicorn_rails -c #{unicorn_config} -E #{rails_env} -D'"
 set :unicorn_pid, "#{current_path}/tmp/pids/unicorn.pid"
-set :su_rails, "sudo -u rails -i"
+set :su_rails, "sudo -u rails"
 
 namespace :deploy do
   task :start, :roles => :app, :except => { :no_release => true } do
-    run "cd #{current_path} && #{su_rails} #{unicorn_binary} -c #{unicorn_config} -E #{rails_env} -D"
+    run "cd #{current_path} && #{su_rails} #{unicorn_binary}"
   end
 
   task :stop, :roles => :app, :except => { :no_release => true } do 
@@ -87,7 +91,7 @@ namespace :deploy do
     run "#{sudo} chgrp rails #{shared_path}/pids"
   end
 
-  task :fix_permisssions, :roles => :app, :except => { :no_release => true } do
+  task :fix_permissions, :roles => :app, :except => { :no_release => true } do
     run "#{sudo} chgrp -R rails #{current_path}/tmp"
   end
 
