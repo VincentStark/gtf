@@ -6,7 +6,7 @@
 -     { m.name =>
 -       (1.month.ago.to_date..Date.today).map { |date|
 -         point = @entity.measurement_values.find_by_measurement_id_and_collected_at(m.id, date.at_midnight)
--         point.nil? ? nil.to_json : point.value
+-         point.nil? ? nil : point.value
 -       }
 -     }
 -   }.to_json
