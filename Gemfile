@@ -1,4 +1,4 @@
-source 'http://rubygems.org'
+source 'https://rubygems.org'
 
 gem 'rails', '3.2.1'
 
@@ -70,6 +70,7 @@ gem 'unicorn'
 
 # Deploy with Capistrano
 gem 'capistrano'
+gem 'rvm-capistrano'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
