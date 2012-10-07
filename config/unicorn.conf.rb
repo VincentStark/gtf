@@ -3,7 +3,7 @@
 worker_processes 16
 
 #user "rails", "rails"
-@app = "/var/rails/gtf"
+@app = "/var/rails/gtf/current"
 
 # Help ensure your application will always spawn in the symlinked
 # "current" directory that Capistrano sets up.

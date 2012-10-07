@@ -79,7 +79,7 @@ namespace :deploy do
     run "source /etc/profile.d/rvm.sh && rvm use #{rvm_ruby_string} --default"
   end
 
-  task :fix_setup_permisssions, :roles => :app, :except => { :no_release => true } do
+  task :fix_setup_permissions, :roles => :app, :except => { :no_release => true } do
     run "#{sudo} chgrp rails #{shared_path}/log"
     run "#{sudo} chgrp rails #{shared_path}/pids"
   end
