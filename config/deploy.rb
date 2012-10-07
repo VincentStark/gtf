@@ -100,11 +100,11 @@ namespace :deploy do
   task :fix_permissions, :roles => :app, :except => { :no_release => true } do
     # To prevent access errors while moving/deleting
     run "#{sudo} chmod 775 #{current_path}/log"
-    run "#{sudo} find #{current_path}/log -type f -exec chmod 664 {} \\;"
-    run "#{sudo} find #{current_path}/log -exec chown #{user}:#{user_rails} {} \\;"
-    run "#{sudo} find #{current_path}/tmp -type f -exec chmod 664 {} \\;"
-    run "#{sudo} find #{current_path}/tmp -type d -exec chmod 775 {} \\;"
-    run "#{sudo} find #{current_path}/tmp -exec chown #{user}:#{user_rails} {} \\;"
+    run "#{sudo} find #{current_path}/log/ -type f -exec chmod 664 {} \\;"
+    run "#{sudo} find #{current_path}/log/ -exec chown #{user}:#{user_rails} {} \\;"
+    run "#{sudo} find #{current_path}/tmp/ -type f -exec chmod 664 {} \\;"
+    run "#{sudo} find #{current_path}/tmp/ -type d -exec chmod 775 {} \\;"
+    run "#{sudo} find #{current_path}/tmp/ -exec chown #{user}:#{user_rails} {} \\;"
   end
 
   # Precompile assets only when needed
