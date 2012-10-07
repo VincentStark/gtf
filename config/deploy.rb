@@ -17,7 +17,8 @@ set :user, "ec2-user"
 set :domain, "global-trend-finder.com"
 
 # Minor tweaks
-set :use_sudo, true
+set :use_sudo, false
+set :rvm_install_with_sudo, true
 set :rvm_type, :system
 
 # git is our SCM

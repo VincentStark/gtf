@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.1'
+gem 'rails', '3.2.8'
 
 # HAML
 gem 'haml-rails'
@@ -8,11 +8,8 @@ gem 'haml-rails'
 # Twitter bootstrap
 gem 'bootstrap-sass'
 
-# Bundle edge Rails instead:
-# gem 'rails', :git => 'git://github.com/rails/rails.git'
-
-# Thin high-performance Ruby application server
-#gem 'thin'
+# Unicorn web server
+gem 'unicorn'
 
 # PostgreSQL
 gem 'pg'
@@ -25,13 +22,18 @@ gem 'bootstrap-will_paginate'
 gem 'hpricot'
 gem 'ruby_parser'
 
+# Deploy with Capistrano
+gem 'capistrano'
+gem 'rvm-capistrano'
+
 # Better compatibility
 gem 'bigdecimal'
 gem 'minitest'
 
 group :development do
+  gem 'thin'
   gem 'rspec-rails'
-  gem 'annotate', '~> 2.4.1.beta'
+  gem 'annotate'
   gem 'faker'
   gem 'cane'
   gem 'rails_best_practices'
@@ -47,14 +49,14 @@ end
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
+  gem 'sass-rails'
+  gem 'coffee-rails'
   gem 'compass-rails'
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   gem 'therubyracer'
 
-  gem 'uglifier', '>= 1.0.3'
+  gem 'uglifier'
 end
 
 gem 'jquery-rails'
@@ -64,13 +66,6 @@ gem 'jquery-rails'
 
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
-
-# Use unicorn as the web server
-gem 'unicorn'
-
-# Deploy with Capistrano
-gem 'capistrano'
-gem 'rvm-capistrano'
 
 # To use debugger
 # gem 'ruby-debug19', :require => 'ruby-debug'
