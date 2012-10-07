@@ -1,8 +1,9 @@
 # Use at least one worker per core if you're on a dedicated server,
 # more will usually help for _short_ waits on databases/caches.
-worker_processes 4
+worker_processes 16
 
 #user "rails", "rails"
+@app = "/var/rails/gtf"
 
 # Help ensure your application will always spawn in the symlinked
 # "current" directory that Capistrano sets up.
@@ -10,20 +11,20 @@ worker_processes 4
 
 # listen on both a Unix domain socket and a TCP port,
 # we use a shorter backlog for quicker failover when busy
-listen "/tmp/unicorn.sock", :backlog => 64
+listen "#{@app}/tmp/sockets/unicorn.sock", :backlog => 64
 #listen 8080, :tcp_nopush => true
 
 # nuke workers after 30 seconds instead of 60 seconds (the default)
 timeout 30
 
 # feel free to point this anywhere accessible on the filesystem
-#pid "/path/to/app/shared/pids/unicorn.pid"
+pid "#{@app}/tmp/pids/unicorn.pid"
 
 # By default, the Unicorn logger will write to stderr.
 # Additionally, ome applications/frameworks log to stderr or stdout,
 # so prevent them from going to /dev/null when daemonized here:
-stderr_path "/var/rails/gtf/log/unicorn.stderr.log"
-stdout_path "/var/rails/gtf/log/unicorn.stdout.log"
+stderr_path "#{@app}/log/unicorn.stderr.log"
+stdout_path "#{@app}/log/unicorn.stdout.log"
 
 # combine Ruby 2.0.0dev or REE with "preload_app true" for memory savings
 # http://rubyenterpriseedition.com/faq.html#adapt_apps_for_cow
