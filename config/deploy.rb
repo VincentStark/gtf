@@ -1,3 +1,4 @@
+$:.unshift(File.expand_path('./lib', ENV['rvm_path']))
 # Automatic "bundle install" after deploy
 require "bundler/capistrano"
 
@@ -9,6 +10,9 @@ load "deploy/assets"
 
 # Application name
 set :application, "gtf"
+
+# Environment
+set :rails_env, :production
 
 # Username
 set :user, "ec2-user"
@@ -46,12 +50,11 @@ before "deploy:setup", "rvm:install_ruby"
 after "deploy:setup", "deploy:set_rvm_version"
 after "deploy:setup", "deploy:fix_setup_permissions"
 
-# Unicorn setup
-set :rails_env, :production
-set :unicorn_binary, "unicorn_rails"
+# Unicorn config
+set :unicorn_binary, "bundle --gemfile #{current_path}/Gemfile exec unicorn_rails"
 set :unicorn_config, "#{current_path}/config/unicorn.conf.rb"
 set :unicorn_pid, "#{current_path}/tmp/pids/unicorn.pid"
-set :su_rails, "sudo -u rails"
+set :su_rails, "sudo -u rails -i"
 
 namespace :deploy do
   task :start, :roles => :app, :except => { :no_release => true } do
@@ -59,15 +62,15 @@ namespace :deploy do
   end
 
   task :stop, :roles => :app, :except => { :no_release => true } do 
-    run "test -f #{unicorn_pid} && #{su_rails} kill `cat #{unicorn_pid}`"
+    run "if [ -f #{unicorn_pid} ]; then #{su_rails} kill `cat #{unicorn_pid}`; fi"
   end
 
   task :graceful_stop, :roles => :app, :except => { :no_release => true } do
-    run "test -f #{unicorn_pid} && #{su_rails} kill -s QUIT `cat #{unicorn_pid}`"
+    run "if [ -f #{unicorn_pid} ]; then #{su_rails} kill -s QUIT `cat #{unicorn_pid}`; fi"
   end
 
   task :reload, :roles => :app, :except => { :no_release => true } do
-    run "test -f #{unicorn_pid} && #{su_rails} kill -s USR2 `cat #{unicorn_pid}`"
+    run "if [ -f #{unicorn_pid} ]; then #{su_rails} kill -s USR2 `cat #{unicorn_pid}`; fi"
   end
 
   task :restart, :roles => :app, :except => { :no_release => true } do
@@ -86,6 +89,18 @@ namespace :deploy do
 
   task :fix_permisssions, :roles => :app, :except => { :no_release => true } do
     run "#{sudo} chgrp -R rails #{current_path}/tmp"
+  end
+
+  # Precompile assets only when needed
+  namespace :assets do
+    task :precompile, :roles => :web, :except => { :no_release => true } do
+      from = source.next_revision(current_revision)
+      if capture("cd #{latest_release} && #{source.local.log(from)} vendor/assets/ app/assets/ | wc -l").to_i > 0
+        run %Q{cd #{latest_release} && #{rake} RAILS_ENV=#{rails_env} #{asset_env} assets:precompile}
+      else
+        logger.info "Skipping asset pre-compilation because there were no asset changes"
+      end
+    end
   end
 end
 
