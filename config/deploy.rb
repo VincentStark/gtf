@@ -15,6 +15,7 @@ set :rails_env, :production
 
 # Username
 set :user, "ec2-user"
+set :user_rails, "rails"
 
 # App Domain
 set :domain, "global-trend-finder.com"
@@ -51,14 +52,18 @@ after "deploy:setup", "deploy:set_rvm_version"
 # Fix log/ and pids/ permissions
 after "deploy:setup", "deploy:fix_setup_permissions"
 
-# Fix tmp/ permissions
+# Fix permissions
 before "deploy:start", "deploy:fix_permissions"
+after "deploy:restart", "deploy:fix_permissions"
+
+# Clean-up old releases
+after "deploy:restart", "deploy:cleanup"
 
 # Unicorn config
 set :unicorn_config, "#{current_path}/config/unicorn.conf.rb"
 set :unicorn_binary, "bash -c 'source /etc/profile.d/rvm.sh && bundle exec unicorn_rails -c #{unicorn_config} -E #{rails_env} -D'"
 set :unicorn_pid, "#{current_path}/tmp/pids/unicorn.pid"
-set :su_rails, "sudo -u rails"
+set :su_rails, "sudo -u #{user_rails}"
 
 namespace :deploy do
   task :start, :roles => :app, :except => { :no_release => true } do
@@ -87,12 +92,18 @@ namespace :deploy do
   end
 
   task :fix_setup_permissions, :roles => :app, :except => { :no_release => true } do
-    run "#{sudo} chgrp rails #{shared_path}/log"
-    run "#{sudo} chgrp rails #{shared_path}/pids"
+    run "#{sudo} chgrp #{user_rails} #{shared_path}/log"
+    run "#{sudo} chgrp #{user_rails} #{shared_path}/pids"
   end
 
   task :fix_permissions, :roles => :app, :except => { :no_release => true } do
-    run "#{sudo} chgrp -R rails #{current_path}/tmp"
+    run "#{sudo} chgrp -R #{user_rails} #{current_path}/tmp"
+    # To prevent access errors while moving/deleting
+    run "#{sudo} chmod 664 #{current_path}/log/*"
+    run "#{sudo} chown #{user} #{current_path}/log/*"
+    run "#{sudo} find #{current_path}/tmp -type f -exec chmod 664 {} \\;"
+    run "#{sudo} find #{current_path}/tmp -type d -exec chmod 775 {} \\;"
+    run "#{sudo} chown -R #{user} #{current_path}/tmp"
   end
 
   # Precompile assets only when needed
@@ -107,6 +118,3 @@ namespace :deploy do
     end
   end
 end
-
-# Clean-up old releases
-after "deploy:restart", "deploy:cleanup"
