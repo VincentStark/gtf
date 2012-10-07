@@ -47,7 +47,14 @@ set :unicorn_pid, "#{current_path}/tmp/pids/unicorn.pid"
 set :su_rails, "sudo -u rails"
 
 namespace :deploy do
-  task :start, :roles => :app, :except => { :no_release => true } do 
+  task :start, :roles => :app, :except => { :no_release => true } do
+    # Normalize permissions
+    run "mkdir #{current_path}/tmp"
+    run "#{sudo} chgrp -R rails #{current_path}/tmp"
+    run "#{sudo} chmod 775 #{current_path}/tmp"
+    run "#{sudo} chgrp -R rails #{current_path}/log"
+    run "#{sudo} chmod 775 #{current_path}/log"
+    # Launch unicorn
     run "cd #{current_path} && #{su_rails} #{unicorn_binary} -c #{unicorn_config} -E #{rails_env} -D"
   end
   task :stop, :roles => :app, :except => { :no_release => true } do 
