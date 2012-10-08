@@ -35,7 +35,7 @@ set :repository, "git://github.com/vasily-ponomarev/gtf.git"
 # gtf is our default git branch
 set :branch, "gtf"
 
-# Deploy local copy
+# Deploy via github
 set :deploy_via, :remote_cache
 set :deploy_to, "/var/rails/#{application}"
 
