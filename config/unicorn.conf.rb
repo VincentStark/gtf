@@ -32,6 +32,12 @@ preload_app true
 GC.respond_to?(:copy_on_write_friendly=) and
   GC.copy_on_write_friendly = true
 
+# Force the bundler gemfile environment variable to 
+# reference the Сapistrano "current" symlink
+before_exec do |_|
+  ENV["BUNDLE_GEMFILE"] = File.join(@app, 'Gemfile')
+end
+
 before_fork do |server, worker|
   # the following is highly recomended for Rails + "preload_app true"
   # as there's no need for the master process to hold a connection
