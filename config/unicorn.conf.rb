@@ -1,6 +1,6 @@
 # Use at least one worker per core if you're on a dedicated server,
 # more will usually help for _short_ waits on databases/caches.
-worker_processes 4
+worker_processes 1
 
 #user "rails", "rails"
 @app = "/var/rails/gtf/current"
@@ -14,8 +14,8 @@ worker_processes 4
 listen "#{@app}/tmp/sockets/unicorn.sock", :backlog => 64
 #listen 8080, :tcp_nopush => true
 
-# nuke workers after 30 seconds instead of 60 seconds (the default)
-timeout 30
+# nuke workers after 120 seconds instead of 60 seconds
+timeout 120
 
 # feel free to point this anywhere accessible on the filesystem
 pid "#{@app}/tmp/pids/unicorn.pid"

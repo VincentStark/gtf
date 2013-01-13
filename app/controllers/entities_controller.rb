@@ -3,7 +3,9 @@ class EntitiesController < ApplicationController
   before_filter :trusted_collector, only: [ :create_words, :create_sites ]
 
   def index_words
-    @entities = Entity.words.sorted(params[:sort]).paginate(page: params[:page])
+    #@entities = Entity.words.sorted(params[:sort]).paginate(page: params[:page])
+    # Unsort words to minimize DB footprint
+    @entities = Entity.words.paginate(page: params[:page])
     if @entities.length > 0
       render 'index'
     else
@@ -13,7 +15,9 @@ class EntitiesController < ApplicationController
   end
 
   def index_sites
-    @entities = Entity.sites.sorted(params[:sort]).paginate(page: params[:page])
+    #@entities = Entity.sites.sorted(params[:sort]).paginate(page: params[:page])
+    # Unsort sites to minimize DB footprint
+    @entities = Entity.sites.paginate(page: params[:page])
     if @entities.length > 0
       render 'index'
     else
