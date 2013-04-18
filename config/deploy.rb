@@ -60,6 +60,9 @@ after "assets:precompile", "deploy:fix_permissions"
 # Clean-up old releases
 after "deploy:restart", "deploy:cleanup"
 
+# Clear nginx cache
+after "deploy:restart", "deploy:nginx_cache_clear"
+
 # Unicorn config
 set :unicorn_config, "#{current_path}/config/unicorn.conf.rb"
 set :unicorn_binary, "bash -c 'source /etc/profile.d/rvm.sh && bundle exec unicorn_rails -c #{unicorn_config} -E #{rails_env} -D'"
@@ -71,7 +74,7 @@ namespace :deploy do
     run "cd #{current_path} && #{su_rails} #{unicorn_binary}"
   end
 
-  task :stop, :roles => :app, :except => { :no_release => true } do 
+  task :stop, :roles => :app, :except => { :no_release => true } do
     run "if [ -f #{unicorn_pid} ]; then #{su_rails} kill `cat #{unicorn_pid}`; fi"
   end
 
@@ -87,7 +90,7 @@ namespace :deploy do
     stop
     start
   end
-  
+
   task :set_rvm_version, :roles => :app, :except => { :no_release => true } do
     run "source /etc/profile.d/rvm.sh && rvm use #{rvm_ruby_string} --default"
   end
@@ -95,6 +98,11 @@ namespace :deploy do
   task :fix_setup_permissions, :roles => :app, :except => { :no_release => true } do
     run "#{sudo} chgrp #{user_rails} #{shared_path}/log"
     run "#{sudo} chgrp #{user_rails} #{shared_path}/pids"
+  end
+
+  task :nginx_cache_clear, :roles => :app, :except => { :no_release => true } do
+    run "#{sudo} rm -rf /var/lib/nginx/cache/*"
+    run "#{sudo} service nginx restart"
   end
 
   task :fix_permissions, :roles => :app, :except => { :no_release => true } do
