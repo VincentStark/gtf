@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
+ruby '2.0.0'
 
-gem 'rails', '3.2.8'
+gem 'rails', '3.2.15'
 
 # HAML
 gem 'haml-rails'
@@ -24,6 +25,7 @@ gem 'ruby_parser'
 
 # Deploy with Capistrano
 gem 'capistrano'
+gem 'capistrano-bundler'
 gem 'rvm-capistrano'
 
 # Better compatibility
@@ -37,6 +39,7 @@ group :development do
   gem 'faker'
   gem 'cane'
   gem 'rails_best_practices'
+  gem 'travis-lint'
 end
 
 group :test do
