@@ -1,0 +1,52 @@
+!!!
+%html
+  %head
+    %title
+      Global Trend Finder - #{yield(:title)}
+    = stylesheet_link_tag    'application', media: 'all'
+    = javascript_include_tag 'application', 'highcharts/highcharts'
+    = javascript_include_tag 'application', 'fb-sdk'
+    = javascript_include_tag 'application', 'twitter'
+    = javascript_include_tag 'application', 'ga'
+    = csrf_meta_tags
+    /[if lt IE 9]
+      <script src='http://html5shim.googlecode.com/svn/trunk/html5.js'></script>
+  %body
+    #fb-root
+    %header.navbar.navbar-fixed-top
+      .navbar-inner
+        .container
+          = link_to 'Global Trend Finder', root_path, class: 'brand'
+          %nav
+            %ul.nav.pull-left
+              %li{class: current_page?(root_path) ? 'active' : nil}= link_to 'Home', root_path
+              %li{class: current_page?(keywords_path) ? 'active' : nil}= link_to 'Keywords', keywords_path
+              %li.divider-vertical
+              = form_for :search, url: search_path, html: { class: 'navbar-search pull-left' } do |f|
+                = f.text_field :query, placeholder: 'Search', class: 'search-query'
+    .container
+      .hero-unit
+        - flash.each do |key, value|
+          .alert{class: 'alert-' + key.to_s}= value
+        = yield
+    / TOFIX: center footer alignment
+    %footer
+      .container
+        %ul.nav.nav-pills.pull-left
+          %li{class: current_page?(about_path) ? 'active' : nil}= link_to 'About', about_path
+          %li{class: current_page?(feedback_path) ? 'active' : nil}= link_to 'Feedback', feedback_path
+          %li= link_to 'Blog', 'http://vasil-y.com', target: '_blank'
+        %ul.nav.nav-pills.pull-right
+          %li.social
+            .fb-like{'data-font' => 'arial',
+                     'data-href' => 'http://global-trend-finder.com',
+                     'data-layout' => 'button_count',
+                     'data-send' => 'false',
+                     'data-show-faces' => 'true',
+                     'data-width' => '150'}
+          %li.social
+            %a.twitter-share-button{'data-hashtags' => 'globaltf,google',
+                                    'data-lang' => 'en',
+                                    'data-text' => 'Fun Google Autocomplete Queries',
+                                    'data-url' => 'http://global-trend-finder.com',
+                                    href: 'https://twitter.com/share'} Tweet

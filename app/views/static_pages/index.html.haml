@@ -1,0 +1,4 @@
+- provide(:title, 'Home')
+%h3 Top 7 Trending Keywords
+= render partial: 'shared/table', locals: { is_sortable: false }
+= link_to 'More keywords...', 'keywords/'

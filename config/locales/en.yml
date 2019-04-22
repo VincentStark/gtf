@@ -1,0 +1,19 @@
+# Sample localization file for English. Add more files in this directory for other locales.
+# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
+
+en:
+  hello: "Hello world"
+
+  rating:
+    unit:
+      one: ""
+      other: ""
+    thousand:
+      one: "K"
+      other: "K"
+    million:
+      one: "M"
+      other: "M"
+    billion:
+      one: "B"
+      other: "B"

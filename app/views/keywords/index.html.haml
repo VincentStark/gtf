@@ -1,0 +1,5 @@
+- provide(:title)
+%h2 Trending Keywords
+= will_paginate @keywords, inner_window: 2
+= render partial: 'shared/table', locals: { entities: @keywords, is_sortable: true }
+= will_paginate @keywords, inner_window: 2

@@ -1,0 +1,8 @@
+# Use PHP5CGI as default
+AddHandler fcgid-script .php
+
+# Rails
+Options -MultiViews
+PassengerResolveSymlinksInDocumentRoot on
+RailsEnv production
+SetEnv GEM_HOME /home4/globapd6/ruby/gems

@@ -1,0 +1,31 @@
+- provide(:title, @keyword.keyword)
+
+/ Highcharts
+- chart_data =
+-   (1.month.ago.to_date..Date.today).map { |date|
+-     point = @keyword.data.find_by_collected_at(date.at_midnight)
+-     point.nil? ? nil : point.value
+-   }
+- }.to_json
+:javascript
+  $(document).ready(function() {
+    $.fn.showChart(#{chart_data});
+  });
+
+%h2= link_to @keyword.keyword, 'http://www.google.ru/search?q="' + CGI.escape(@keyword.keyword) + '"', target: '_blank'
+
+%br
+.row
+  #chart.span8
+  .span2
+    .row-fluid
+      .span12
+        = link_to number_to_human(@keyword.data, units: :rating), 'http://www.google.ru/search?q="' + CGI.escape(@keyword.keyword) + '"', target: '_blank'
+    .row-fluid
+      .span12
+        .fb-like{'data-font' => 'arial',
+                 'data-href' => 'http://global-trend-finder.com/keywords/' + CGI.escape(@keyword.keyword),
+                 'data-layout' => 'button_count',
+                 'data-send' => 'false',
+                 'data-show-faces' => 'true',
+                 'data-width' => '150'}

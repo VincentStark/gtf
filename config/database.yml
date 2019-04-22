@@ -1,0 +1,18 @@
+# Database connection
+
+common: &common
+  adapter: sqlite3
+
+development:
+  <<: *common
+  database: db/development.sqlite3 
+
+test:
+  <<: *common
+  database: db/test.sqlite3 
+
+production:
+  adapter: postgresql
+  database: gtf
+  username: gtf
+  password: gtf675

@@ -1,0 +1,6 @@
+.container-fluid.well
+  .row-fluid
+    .span8.header
+      = is_sortable ? (link_to 'Keyword', sort: params[:sort] == 'keyword' ? 'keyword DESC' : 'keyword', page: params[:page]) : 'Keyword'
+      .span1
+        = is_sortable ? (link_to 'Data', sort: params[:sort] == 'data' ? 'data DESC' : 'data', page: params[:page]) : 'Data'

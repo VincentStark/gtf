@@ -1,0 +1,7 @@
+.row-fluid.highlight
+  .span8
+    %b= link_to keyword.keyword
+    .span1
+      = link_to number_to_human(keyword.data, units: :rating),
+                CGI.escape(keyword.keyword),
+                target: '_blank'

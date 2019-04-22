@@ -1,0 +1,4 @@
+- provide(:title, 'Search')
+- if !@keywords.nil?
+  %h2 Search Results (#{@keywords.length})
+  = render partial: 'shared/table', locals: { is_sortable: false }
